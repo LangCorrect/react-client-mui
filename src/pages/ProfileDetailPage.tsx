@@ -1,6 +1,6 @@
 import BootstrapContainer from "../components/BootstrapContainer";
 import { Typography, Grid, Button, Box, Tabs, Tab } from "@mui/material";
-import { Stars, Mail } from '@mui/icons-material';
+import { Stars, Mail } from "@mui/icons-material";
 import { useState } from "react";
 
 interface TabPanelProps {
@@ -12,8 +12,8 @@ interface TabPanelProps {
 const ProfileDetailPage = () => {
     const tabProps = (index: number) => ({
         id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    })
+        "aria-controls": `simple-tabpanel-${index}`,
+    });
 
     const TabPanel = (props: TabPanelProps) => {
         const { children, value, index } = props;
@@ -32,7 +32,7 @@ const ProfileDetailPage = () => {
                 )}
             </div>
         );
-    }
+    };
 
     const [tabValue, setTabValue] = useState(0);
 
@@ -43,20 +43,36 @@ const ProfileDetailPage = () => {
     return (
         <>
             <BootstrapContainer>
-                <Grid
-                    container
-                >
-                    <Grid item xs={12} md={9} order={{ xs: 2, md: 1 }} paddingRight={3}>
-                        <Typography
-                            variant="h3"
-                            color="primary"
-                            display={{ xs: "none", md: "block" }}
+                <Grid container>
+                    <Grid
+                        item
+                        xs={12}
+                        md={9}
+                        order={{ xs: 2, md: 1 }}
+                        paddingRight={3}
+                    >
+                        <Box
+                            display={{ xs: "none", md: "flex" }}
+                            alignItems="center"
                         >
-                            Reynaud Reyer
-                        </Typography>
+                            <Typography
+                                variant="h3"
+                                color="primary"
+                                paddingRight={1}
+                            >
+                                Reynaud Reyer
+                            </Typography>
+                            <Stars color="primary" fontSize="large" />
+                        </Box>
                         <Box>
-                            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                <Tabs value={tabValue} onChange={handleChange} aria-label="profile tabs">
+                            <Box
+                                sx={{ borderBottom: 1, borderColor: "divider" }}
+                            >
+                                <Tabs
+                                    value={tabValue}
+                                    onChange={handleChange}
+                                    aria-label="profile tabs"
+                                >
                                     <Tab label="Posts" {...tabProps(0)} />
                                     <Tab label="Prompts" {...tabProps(1)} />
                                     <Tab label="Stats" {...tabProps(2)} />
@@ -73,45 +89,76 @@ const ProfileDetailPage = () => {
                             </TabPanel>
                         </Box>
                     </Grid>
-                    <Grid item xs={12} md={3} order={{ xs: 1, md: 2 }} borderLeft={{ xs: 0, md: "1px solid lightgrey" }} sx={{ paddingLeft: { xs: 0, md: 3 } }}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={3}
+                        order={{ xs: 1, md: 2 }}
+                        borderLeft={{ xs: 0, md: "1px solid lightgrey" }}
+                        sx={{ paddingLeft: { xs: 0, md: 3 } }}
+                    >
                         <Grid container marginBottom={1}>
-                            <Grid item xs={4} md={12} container alignItems="center" justifyContent="start" marginBottom={1}>
+                            <Grid
+                                item
+                                xs={4}
+                                md={12}
+                                container
+                                alignItems="center"
+                                marginBottom={1}
+                            >
                                 <Box
                                     component="img"
                                     src="https://thumb9.shutterstock.com/image-photo/stock-photo-head-shot-portrait-close-up-smiling-confident-businessman-wearing-glasses-looking-at-camera-250nw-1714666150.jpg"
                                     alt="profile-pic"
-                                    sx={{ width: { xs: 100, md: 150 }, height: { xs: 100, md: 150 }, objectFit: "cover", borderRadius: "50%" }}
+                                    sx={{
+                                        width: { xs: 100, md: 150 },
+                                        height: { xs: 100, md: 150 },
+                                        objectFit: "cover",
+                                        borderRadius: "50%",
+                                    }}
                                 />
                             </Grid>
-                            <Grid item xs={8} md={12} container textAlign="start">
-                                <Grid item xs={12} display="flex" alignItems="center" justifyContent="start">
+                            <Grid item xs={8} md={12}>
+                                <Box display="flex" alignItems="center" gap={1}>
                                     <Typography variant="h5" color="primary">
                                         Reynaud Reyer
                                     </Typography>
-                                    <Stars color="primary" />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography variant="subtitle1" color="text.secondary">
-                                        2 followers
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12} textAlign="start">
-                                    <Typography variant="subtitle1" color="text.secondary" display={{ xs: "none", md: "block" }}>
-                                        I'm from Nantes, France and I'm learning English
-                                    </Typography>
-                                </Grid>
+                                    <Box
+                                        display={{ xs: "flex", md: "none" }}
+                                        alignItems="center"
+                                    >
+                                        <Stars color="primary" />
+                                    </Box>
+                                </Box>
+                                <Typography
+                                    variant="subtitle1"
+                                    color="text.secondary"
+                                >
+                                    2 followers
+                                </Typography>
+                                <Typography
+                                    variant="subtitle1"
+                                    color="text.secondary"
+                                    display={{ xs: "none", md: "block" }}
+                                >
+                                    I'm from Nantes, France and I'm learning
+                                    English
+                                </Typography>
                             </Grid>
                         </Grid>
-
-                        <Box display="flex" gap={1} justifyContent="start">
-                            <Button size="small" variant="contained">Follow</Button>
-                            <Button size="small" variant="contained"><Mail /></Button>
+                        <Box display="flex" gap={1}>
+                            <Button size="small" variant="contained">
+                                Follow
+                            </Button>
+                            <Button size="small" variant="contained">
+                                <Mail />
+                            </Button>
                         </Box>
                     </Grid>
                 </Grid>
-            </BootstrapContainer >
+            </BootstrapContainer>
         </>
-    )
-}
+    );
+};
 
-export default ProfileDetailPage
+export default ProfileDetailPage;
