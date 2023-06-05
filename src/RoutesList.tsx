@@ -10,6 +10,7 @@ import RequireAuth from "./components/RequireAuth.tsx";
 import useAuth from "./hooks/useAuth.tsx";
 import CreatePostPage from "./pages/CreatePostPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
+import ProfileDetailPage from "./pages/ProfileDetailPage.tsx";
 
 const RoutesList = () => {
     const authContext = useAuth();
@@ -67,6 +68,7 @@ const RoutesList = () => {
                     }
                 />
                 <Route path="journals/:slug" element={<PostDetailPage />} />
+                <Route path="account/user" element={<ProfileDetailPage />} />
             </Route>
 
             {/* Protected Routes */}
