@@ -1,50 +1,28 @@
 import BootstrapContainer from "../components/BootstrapContainer";
-import { Typography, Grid, Button, Box, Tabs, Tab } from "@mui/material";
+import { Typography, Grid, Button, Box } from "@mui/material";
 import { Stars, Mail } from "@mui/icons-material";
 import { useState } from "react";
-import PostList from "../components/posts/PostList";
 import mockPostsData from "../mockData/mockPosts";
 import mockUserData from "../mockData/mockUser";
 import { ICurrentUser } from "../context/AuthProvider";
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
+import { PostInterface } from "./PostPage";
+import UserContent from "../components/profile/UserContent";
 
 interface ProfileDetailPageProps {
     user: ICurrentUser;
+    posts: PostInterface[];
 }
 
-const ProfileDetailPage = ({ user = mockUserData }: ProfileDetailPageProps) => {
-    const tabProps = (index: number) => ({
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`,
-    });
-
-    const TabPanel = (props: TabPanelProps) => {
-        const { children, value, index } = props;
-
-        return (
-            <div
-                role="tabpanel"
-                hidden={value !== index}
-                id={`simple-tabpanel-${index}`}
-                aria-labelledby={`simple-tab-${index}`}
-            >
-                {value === index && (
-                    <Box sx={{ p: 3 }}>
-                        <Typography>{children}</Typography>
-                    </Box>
-                )}
-            </div>
-        );
-    };
-
+const ProfileDetailPage = ({
+    user = mockUserData,
+    posts = mockPostsData,
+}: ProfileDetailPageProps) => {
     const [tabValue, setTabValue] = useState(0);
 
-    const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
+    const handleTabChange = (
+        _event: React.SyntheticEvent,
+        newValue: number,
+    ) => {
         setTabValue(newValue);
     };
 
@@ -59,48 +37,12 @@ const ProfileDetailPage = ({ user = mockUserData }: ProfileDetailPageProps) => {
                         order={{ xs: 2, md: 1 }}
                         paddingRight={3}
                     >
-                        <Box
-                            display={{ xs: "none", md: "flex" }}
-                            alignItems="center"
-                        >
-                            <Typography
-                                variant="h3"
-                                color="primary"
-                                paddingRight={1}
-                            >
-                                {user.nick_name}
-                            </Typography>
-                            {user.is_premium && (
-                                <Stars color="primary" fontSize="large" />
-                            )}
-                        </Box>
-                        <Box>
-                            <Box
-                                sx={{ borderBottom: 1, borderColor: "divider" }}
-                            >
-                                <Tabs
-                                    value={tabValue}
-                                    onChange={handleChange}
-                                    aria-label="profile tabs"
-                                >
-                                    <Tab label="Posts" {...tabProps(0)} />
-                                    <Tab label="Prompts" {...tabProps(1)} />
-                                    <Tab label="Stats" {...tabProps(2)} />
-                                </Tabs>
-                            </Box>
-                            <TabPanel value={tabValue} index={0}>
-                                <PostList
-                                    posts={mockPostsData}
-                                    isLoading={false}
-                                />
-                            </TabPanel>
-                            <TabPanel value={tabValue} index={1}>
-                                Display my prompts
-                            </TabPanel>
-                            <TabPanel value={tabValue} index={2}>
-                                Display my stats
-                            </TabPanel>
-                        </Box>
+                        <UserContent
+                            user={user}
+                            posts={posts}
+                            tabValue={tabValue}
+                            handleTabChange={handleTabChange}
+                        />
                     </Grid>
                     <Grid
                         item
