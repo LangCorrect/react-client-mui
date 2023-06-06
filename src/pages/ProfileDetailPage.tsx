@@ -2,6 +2,8 @@ import BootstrapContainer from "../components/BootstrapContainer";
 import { Typography, Grid, Button, Box, Tabs, Tab } from "@mui/material";
 import { Stars, Mail } from "@mui/icons-material";
 import { useState } from "react";
+import PostList from "../components/posts/PostList";
+import mockPosts from "../mockData/mockPosts";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -79,7 +81,7 @@ const ProfileDetailPage = () => {
                                 </Tabs>
                             </Box>
                             <TabPanel value={tabValue} index={0}>
-                                Display my posts
+                                <PostList posts={mockPosts} isLoading={false} />
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
                                 Display my prompts
@@ -95,7 +97,7 @@ const ProfileDetailPage = () => {
                         md={3}
                         order={{ xs: 1, md: 2 }}
                         borderLeft={{ xs: 0, md: "1px solid lightgrey" }}
-                        sx={{ paddingLeft: { xs: 0, md: 3 } }}
+                        paddingLeft={{ xs: 0, md: 3 }}
                     >
                         <Grid container marginBottom={1}>
                             <Grid

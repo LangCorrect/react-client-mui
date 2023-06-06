@@ -31,7 +31,7 @@ export interface PostInterface {
     language_level: null | string;
     user: {
         username: string;
-        id_premium: boolean;
+        is_premium: boolean;
     };
     total_correctors: number;
     corrected_by: string[];
