@@ -7,6 +7,7 @@ import { ICurrentUser } from "../context/AuthProvider";
 import { PostInterface } from "./PostPage";
 import UserContent from "../components/profile/UserContent";
 import UserInfo from "../components/profile/UserInfo";
+import { Theme } from "@mui/material/styles";
 
 interface ProfileDetailPageProps {
     user: ICurrentUser;
@@ -49,7 +50,12 @@ const ProfileDetailPage = ({
                         xs={12}
                         md={3}
                         order={{ xs: 1, md: 2 }}
-                        borderLeft={{ xs: 0, md: "1px solid lightgrey" }}
+                        sx={{
+                            borderLeft: (theme: Theme) => ({
+                                xs: 0,
+                                md: `1px solid ${theme.palette.divider}`,
+                            }),
+                        }}
                         paddingLeft={{ xs: 0, md: 3 }}
                     >
                         <UserInfo user={user} />

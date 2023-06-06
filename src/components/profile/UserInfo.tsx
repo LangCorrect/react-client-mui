@@ -12,7 +12,8 @@ const UserInfo = ({ user }: UserInfoProps) => {
             <Grid container marginBottom={1}>
                 <Grid
                     item
-                    xs={4}
+                    xs={12}
+                    sm={4}
                     md={12}
                     container
                     alignItems="center"
@@ -30,7 +31,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
                         }}
                     />
                 </Grid>
-                <Grid item xs={8} md={12}>
+                <Grid item xs={12} sm={8} md={12}>
                     <Box display="flex" alignItems="center" gap={1}>
                         <Typography variant="h5" color="primary">
                             {user.nick_name}
