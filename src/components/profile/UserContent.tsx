@@ -3,6 +3,7 @@ import { Stars } from "@mui/icons-material";
 import { ICurrentUser } from "../../context/AuthProvider";
 import { PostInterface } from "../../pages/PostPage";
 import PostList from "../posts/PostList";
+import UserStats from "./UserStats";
 
 interface UserContentProps {
     user: ICurrentUser;
@@ -74,7 +75,7 @@ const UserContent = ({
                     Display my prompts
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
-                    Display my stats
+                    <UserStats />
                 </TabPanel>
             </Box>
         </>
