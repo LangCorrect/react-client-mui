@@ -1,4 +1,6 @@
-const data = [
+import { PostInterface } from "../pages/PostPage";
+
+const mockPostsData: PostInterface[] = [
     {
         id: 8,
         content: {
@@ -197,4 +199,4 @@ const data = [
     },
 ];
 
-export default data;
+export default mockPostsData;

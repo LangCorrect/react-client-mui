@@ -3,7 +3,9 @@ import { Typography, Grid, Button, Box, Tabs, Tab } from "@mui/material";
 import { Stars, Mail } from "@mui/icons-material";
 import { useState } from "react";
 import PostList from "../components/posts/PostList";
-import mockPosts from "../mockData/mockPosts";
+import mockPostsData from "../mockData/mockPosts";
+import mockUserData from "../mockData/mockUser";
+import { ICurrentUser } from "../context/AuthProvider";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -11,7 +13,11 @@ interface TabPanelProps {
     value: number;
 }
 
-const ProfileDetailPage = () => {
+interface ProfileDetailPageProps {
+    user: ICurrentUser;
+}
+
+const ProfileDetailPage = ({ user = mockUserData }: ProfileDetailPageProps) => {
     const tabProps = (index: number) => ({
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
@@ -62,9 +68,11 @@ const ProfileDetailPage = () => {
                                 color="primary"
                                 paddingRight={1}
                             >
-                                Reynaud Reyer
+                                {user.nick_name}
                             </Typography>
-                            <Stars color="primary" fontSize="large" />
+                            {user.is_premium && (
+                                <Stars color="primary" fontSize="large" />
+                            )}
                         </Box>
                         <Box>
                             <Box
@@ -81,7 +89,10 @@ const ProfileDetailPage = () => {
                                 </Tabs>
                             </Box>
                             <TabPanel value={tabValue} index={0}>
-                                <PostList posts={mockPosts} isLoading={false} />
+                                <PostList
+                                    posts={mockPostsData}
+                                    isLoading={false}
+                                />
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
                                 Display my prompts
@@ -123,13 +134,15 @@ const ProfileDetailPage = () => {
                             <Grid item xs={8} md={12}>
                                 <Box display="flex" alignItems="center" gap={1}>
                                     <Typography variant="h5" color="primary">
-                                        Reynaud Reyer
+                                        {user.nick_name}
                                     </Typography>
                                     <Box
                                         display={{ xs: "flex", md: "none" }}
                                         alignItems="center"
                                     >
-                                        <Stars color="primary" />
+                                        {user.is_premium && (
+                                            <Stars color="primary" />
+                                        )}
                                     </Box>
                                 </Box>
                                 <Typography
@@ -143,8 +156,7 @@ const ProfileDetailPage = () => {
                                     color="text.secondary"
                                     display={{ xs: "none", md: "block" }}
                                 >
-                                    I'm from Nantes, France and I'm learning
-                                    English
+                                    {user.bio}
                                 </Typography>
                             </Grid>
                         </Grid>
