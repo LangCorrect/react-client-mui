@@ -68,7 +68,7 @@ const RoutesList = () => {
                     }
                 />
                 <Route path="journals/:slug" element={<PostDetailPage />} />
-                <Route path="account/user" element={<ProfileDetailPage />} />
+                <Route path="users/:user" element={<ProfileDetailPage />} />
             </Route>
 
             {/* Protected Routes */}

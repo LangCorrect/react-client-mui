@@ -8,16 +8,18 @@ import { PostInterface } from "./PostPage";
 import UserContent from "../components/profile/UserContent";
 import UserInfo from "../components/profile/UserInfo";
 import { Theme } from "@mui/material/styles";
+import { useParams } from "react-router-dom";
 
 interface ProfileDetailPageProps {
     user: ICurrentUser;
     posts: PostInterface[];
 }
 
-const ProfileDetailPage = ({
-    user = mockUserData,
-    posts = mockPostsData,
-}: ProfileDetailPageProps) => {
+const ProfileDetailPage = () => {
+    const user = mockUserData;
+    const posts = mockPostsData;
+
+    // const { user } = useParams();
     const [tabValue, setTabValue] = useState(0);
 
     const handleTabChange = (
