@@ -15,7 +15,11 @@ const StatCard = ({ title, content }: StatCardProps) => (
                 alignItems: "center",
             }}
         >
-            <Typography variant="h5" color="text.secondary">
+            <Typography
+                variant="h5"
+                color="text.secondary"
+                style={{ whiteSpace: "nowrap" }}
+            >
                 {title}
             </Typography>
             <Typography variant="h5" fontWeight="bold">

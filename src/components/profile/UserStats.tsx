@@ -19,8 +19,18 @@ const mockStats = [
     },
     {
         id: 3,
-        title: "Longest streak",
+        title: "Contribution Ranking",
         content: "8",
+    },
+    {
+        id: 4,
+        title: "Post Count",
+        content: "15",
+    },
+    {
+        id: 5,
+        title: "Prompt Count",
+        content: "1",
     },
 ];
 
