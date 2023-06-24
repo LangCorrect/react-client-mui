@@ -14,7 +14,7 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import Correction, { CorrectionInterface } from "./Correction";
+import Correction, { ICorrection } from "./Correction";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -29,7 +29,7 @@ interface IOverallFeedback {
 
 export interface IUserCorrections {
     username: string;
-    corrections: CorrectionInterface[];
+    corrections: ICorrection[];
     comments: CommentInterface[];
     overall_feedback: IOverallFeedback[];
 }
@@ -62,17 +62,9 @@ const UserCorrections = ({
                 <Divider />
                 <List disablePadding>
                     {corrections.map((correction) => (
-                        <Correction
-                            key={
-                                correction.correction_id
-                                    ? correction.correction_id
-                                    : correction.perfect_id
-                            }
-                            data={correction}
-                        />
+                        <Correction key={correction.id} data={correction} />
                     ))}
                 </List>
-                {/* <Divider /> */}
                 <CardContent>
                     <Stack
                         direction="row"

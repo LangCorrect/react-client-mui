@@ -2,11 +2,8 @@ import PostList from "../components/posts/PostList.tsx";
 import { Button, Stack, Typography } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
-import useAuth from "../hooks/useAuth.tsx";
-import axios from "../api/axios.tsx";
-import { IAuthContext } from "../context/AuthProvider.tsx";
+import { Link } from "react-router-dom";
+import PostService from "../service/post.service.tsx";
 
 export interface PostInterface {
     id: number;
@@ -48,37 +45,10 @@ interface IProps {
 }
 
 const PostPage = ({ mode }: IProps) => {
-    const axiosPrivate = useAxiosPrivate();
-    const location = useLocation();
-    const navigate = useNavigate();
-
     const { isLoading, isError, data } = useQuery({
         queryKey: ["posts"],
-        queryFn: fetchPosts,
+        queryFn: PostService.getPostList,
     });
-
-    const authContext = useAuth();
-    const { accessToken } = authContext as IAuthContext;
-
-    async function fetchPosts() {
-        let results = [];
-
-        if (accessToken) {
-            try {
-                const response = await axiosPrivate.get("/journals");
-                results = response.data.results;
-            } catch (err) {
-                navigate("/login", {
-                    state: { from: location },
-                    replace: true,
-                });
-            }
-        } else {
-            const response = await axios.get("/journals");
-            results = response.data.results;
-        }
-        return results;
-    }
 
     if (isError) return <h1>Problems loading...</h1>;
 

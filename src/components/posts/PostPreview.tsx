@@ -131,6 +131,8 @@ const PostPreview = ({ post }: PostPreviewInterface) => {
                     size="small"
                     variant={isCorrectedByUser ? "contained" : "outlined"}
                     startIcon={<CheckCircleOutlineIcon />}
+                    component={Link}
+                    to={`/journals/${meta.slug}/make-corrections`}
                 >
                     {isCorrectedByUser ? "Already corrected" : "Correct"}
                 </Button>

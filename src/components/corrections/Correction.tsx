@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    Box,
     Divider,
     IconButton,
     ListItem,
@@ -8,53 +7,35 @@ import {
     ListItemText,
     Menu,
     MenuItem,
-    Typography,
 } from "@mui/material";
 import ReplyIcon from "@mui/icons-material/Reply";
-import sanitizeHtml from "sanitize-html";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import EditIcon from "@mui/icons-material/Edit";
 import "./Correction.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import CheckIcon from "@mui/icons-material/Check";
-import ClearIcon from "@mui/icons-material/Clear";
+import PerfectSentence from "./PerfectSentence";
+import CorrectedSentence from "./CorrectedSentence";
 
-export interface CorrectionInterface {
-    username: string;
-    correction_id?: string;
-    perfect_id?: string;
-    correction?: string | undefined;
-    note?: string | undefined;
-    pretty_html?: string | undefined;
-    sentence_order: number;
-    status: string;
-    original_sentence?: string;
+export interface ICorrection {
+    id: number;
+    user: string;
+    type: "perfect" | "correction";
+    order: number;
+    original_sentence: string;
+    correction?: string;
+    note?: string;
+    pretty_html?: string;
+    correction_type?: string[];
 }
 
 export interface CorrectionPropInterface {
-    data: CorrectionInterface;
+    data: ICorrection;
 }
-
-interface SanitizeProps {
-    html: string;
-    options?: sanitizeHtml.IOptions;
-}
-
-const defaultOptions: sanitizeHtml.IOptions = {
-    allowedTags: ["span", "del", "ins"],
-};
-
-const sanitize = ({ html, options }: SanitizeProps) => ({
-    __html: sanitizeHtml(html, { ...defaultOptions, ...options }),
-});
-
-const SanitizeHTML = ({ html, options }: SanitizeProps) => (
-    <div dangerouslySetInnerHTML={sanitize({ html, options })} />
-);
 
 const Correction = ({ data }: CorrectionPropInterface) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -63,45 +44,16 @@ const Correction = ({ data }: CorrectionPropInterface) => {
     };
 
     const renderCorrection =
-        data.status === "perfect" ? (
-            <Typography color="success.main">
-                <Box
-                    component="span"
-                    display="flex"
-                    alignItems="center"
-                    gap={1}
-                >
-                    <CheckIcon />
-                    {data.original_sentence}
-                </Box>
-            </Typography>
+        data.type === "perfect" ? (
+            <PerfectSentence sentence={data.original_sentence} />
         ) : (
-            <ListItemText
-                primary={
-                    <Box
-                        component="span"
-                        display="flex"
-                        alignItems="center"
-                        gap={1}
-                    >
-                        <ClearIcon sx={{ color: "error.main" }} />
-                        <SanitizeHTML
-                            html={data?.pretty_html ? data.pretty_html : ""}
-                        />
-                    </Box>
-                }
-                secondary={data.note ? data.note : ""}
-            />
+            <CorrectedSentence sentence={data?.pretty_html} note={data?.note} />
         );
-
-    const correctionId = data.correction_id
-        ? data.correction_id
-        : data.perfect_id;
 
     return (
         <>
             <ListItem
-                key={correctionId}
+                key={data.id}
                 secondaryAction={
                     <>
                         <IconButton

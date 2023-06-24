@@ -1,11 +1,14 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { axiosPrivate } from "../api/axios";
 import jwtDecode from "jwt-decode";
 import {
     ACCESS_TOKEN_STORAGE_ID,
     REFRESH_TOKEN_STORAGE_ID,
 } from "../constants";
+
+import api from "../service/api";
+import TokenService from "../service/token.service";
+import UserService from "../service/user.service";
 
 interface ILanguage {
     code: string;
@@ -87,15 +90,54 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             if (accessToken) {
                 const decodedToken = jwtDecode<IDecodeToken>(accessToken);
                 const { username } = decodedToken;
-                const response = await axiosPrivate.get(`/users/${username}`);
-                setCurrentUser(response.data);
+                const user = await UserService.getUser(username);
+                setCurrentUser(user);
                 setUserInfoLoaded(true);
             } else {
                 setCurrentUser(null);
                 setUserInfoLoaded(true);
             }
         }
+
+        const interceptor = api.interceptors.response.use(
+            (res) => {
+                return res;
+            },
+            async (err) => {
+                const originalConfig = err.config;
+
+                if (
+                    err?.response?.data?.code === "token_not_valid" &&
+                    err?.response
+                ) {
+                    // access token is expired
+                    if (err.response.status === 403 && !originalConfig._retry) {
+                        originalConfig._retry = true;
+
+                        try {
+                            const resp = await api.post("/token/refresh/", {
+                                refresh: TokenService.getLocalRefreshToken(),
+                            });
+                            const { access } = resp.data;
+                            TokenService.updateLocalAccessToken(access);
+                            return api(originalConfig);
+                        } catch (_error) {
+                            return Promise.reject(_error);
+                        }
+                    }
+
+                    // refresh token is expired
+                    if (err.response.status === 401 && !originalConfig._retry) {
+                        TokenService.removeLocalTokens();
+                        setCurrentUser(null);
+                    }
+                }
+                return Promise.reject(err);
+            },
+        );
+
         fetchUser();
+        return () => api.interceptors.response.eject(interceptor);
     }, [accessToken]);
 
     return (

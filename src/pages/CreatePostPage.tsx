@@ -1,14 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import PostCreateForm, { PostFormValues } from "../components/posts/PostForm";
 import { Box } from "@mui/material";
-import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import PostService from "../service/post.service";
 
 const CreatePostPage = () => {
     const navigate = useNavigate();
-    const axiosPrivate = useAxiosPrivate();
 
     const handleSubmit = async (data: PostFormValues) => {
-        return await axiosPrivate.post("/journals/", data);
+        return await PostService.createPost(data);
     };
 
     const handleDiscard = () => {

@@ -5,11 +5,10 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Box from "@mui/material/Box";
-import axios from "../../api/axios";
-
 import useAuth from "../../hooks/useAuth";
 import { IAuthContext } from "../../context/AuthProvider";
 import { AxiosError, isAxiosError } from "axios";
+import AuthService from "../../service/auth.service";
 
 const validationSchema = yup.object().shape({
     username: yup.string().min(6).max(26).required(),
@@ -31,8 +30,7 @@ const LoginForm = () => {
 
     if (!authContext) return <p>Loading...</p>;
 
-    const { setAccessToken, setRefreshToken, setCurrentUser } =
-        authContext as IAuthContext;
+    const { setAccessToken, setRefreshToken } = authContext as IAuthContext;
 
     const from = location.state?.from?.pathname || "/";
 
@@ -40,17 +38,11 @@ const LoginForm = () => {
         setErrMsg("");
 
         try {
-            const response = await axios.post("token/", data, {
-                headers: { "Content-Type": "application/json" },
-            });
-
-            const { access, refresh } = response.data;
-
+            const resp = await AuthService.login(data.username, data.password);
+            const { access, refresh } = resp.data;
             setAccessToken(access);
             setRefreshToken(refresh);
-            setCurrentUser({
-                username: data.username,
-            });
+
             navigate(from, { replace: true });
         } catch (err) {
             const error = err as Error | AxiosError;
@@ -81,7 +73,7 @@ const LoginForm = () => {
                     <TextField
                         required
                         {...register("username")}
-                        label="username"
+                        label="Username"
                         error={!!errors.username}
                         helperText={
                             errors.username && String(errors.username.message)

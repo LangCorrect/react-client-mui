@@ -7,15 +7,13 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import LangCorrectAPI, { RegisterUser } from "../api/api";
 import RegisterForm from "../components/auth/RegisterForm";
 import { Link } from "react-router-dom";
+import AuthService, { IRegisterUser } from "../service/auth.service";
 
 const RegisterPage = () => {
-    const register = async (formData: RegisterUser) => {
-        const resp = await LangCorrectAPI.register(formData);
-        console.log("🚀 ~ file: RegisterPage.tsx:12 ~ register ~ resp:", resp);
-    };
+    const register = async (formData: IRegisterUser) =>
+        AuthService.register(formData);
 
     return (
         <Box

@@ -27,7 +27,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditableArticle from "./EditableArticle.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import { PostFormValues } from "./PostForm.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Dialog from "@mui/material/Dialog";
@@ -35,8 +34,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AxiosError, isAxiosError } from "axios";
+import PostService from "../../service/post.service.tsx";
 
 interface PostPreviewInterface {
     post: PostInterface;
@@ -55,17 +55,12 @@ const Post = ({ post }: PostPreviewInterface) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [errMsg, setErrMsg] = useState<string | null>(null);
-    const axiosPrivate = useAxiosPrivate();
     const queryClient = useQueryClient();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const navigate = useNavigate();
     const mutation = useMutation({
-        mutationFn: (editedPost: PostFormValues) => {
-            return axiosPrivate.patch(
-                `/journals/${post.meta.slug}`,
-                editedPost,
-            );
-        },
+        mutationFn: (postData: PostFormValues) =>
+            PostService.editPost(post.meta.slug, postData),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["posts", post.meta.slug],
@@ -106,7 +101,7 @@ const Post = ({ post }: PostPreviewInterface) => {
 
     const handleDelete = async () => {
         try {
-            await axiosPrivate.delete(`/journals/${post.meta.slug}`);
+            await PostService.deletePost(post.meta.slug);
             navigate("/");
         } catch (err) {
             const error = err as Error | AxiosError;
@@ -276,6 +271,8 @@ const Post = ({ post }: PostPreviewInterface) => {
                                 isCorrectedByUser ? "contained" : "outlined"
                             }
                             startIcon={<CheckCircleOutlineIcon />}
+                            component={Link}
+                            to={`/journals/${post.meta.slug}/make-corrections`}
                         >
                             {isCorrectedByUser
                                 ? "Already corrected"
