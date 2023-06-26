@@ -85,7 +85,7 @@ const ProfileDetailPage = () => {
                             bgcolor: "background.default",
                         }}
                         paddingLeft={{ xs: 0, md: 3 }}
-                        paddingBottom={{ xs: 3, md: 0 }}
+                        paddingBottom={{ xs: 1, md: 0 }}
                     >
                         <UserInfo user={userQuery.data} />
                     </Grid>
