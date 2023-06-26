@@ -32,7 +32,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
                     {/* Username */}
                     <Box display="flex" alignItems="center" gap={1}>
                         <Typography variant="h5" color="primary">
-                            {user.nick_name}
+                            {user.nick_name || user.username}
                         </Typography>
                         <Box
                             display={{ xs: "flex", md: "none" }}
@@ -51,9 +51,8 @@ const UserInfo = ({ user }: UserInfoProps) => {
                         variant="subtitle1"
                         color="text.secondary"
                         display={{ xs: "none", md: "block" }}
-                        sx={{ wordBreak: "break-all" }}
                     >
-                        {user.bio}
+                        {/* Maybe put native languages and studying languages here */}
                     </Typography>
                     {/* Buttons */}
                     <Button
