@@ -1,25 +1,27 @@
 import BootstrapContainer from "../components/BootstrapContainer";
 import { Grid } from "@mui/material";
 import { useState } from "react";
-import mockPostsData from "../mockData/mockPosts";
-import mockUserData from "../mockData/mockUser";
-import { ICurrentUser } from "../context/AuthProvider";
-import { PostInterface } from "./PostPage";
 import UserContent from "../components/profile/UserContent";
 import UserInfo from "../components/profile/UserInfo";
 import { Theme } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
+import UserService from "../service/user.service";
+import { useQueries } from "@tanstack/react-query";
+import PostService from "../service/post.service";
+// import mockPostsData from "../mockData/mockPosts";
+// import mockUserData from "../mockData/mockUser";
 
-interface ProfileDetailPageProps {
-    user: ICurrentUser;
-    posts: PostInterface[];
+interface Params {
+    username: string;
 }
 
 const ProfileDetailPage = () => {
-    const user = mockUserData;
-    const posts = mockPostsData;
+    // Mock data for when the API is not working
+    // const user = mockUserData;
+    // const userPosts = mockPostsData;
 
-    // const { user } = useParams();
+    const { username } = useParams<keyof Params>() as Params;
+
     const [tabValue, setTabValue] = useState(0);
 
     const handleTabChange = (
@@ -28,6 +30,22 @@ const ProfileDetailPage = () => {
     ) => {
         setTabValue(newValue);
     };
+
+    const [userQuery, postsQuery] = useQueries({
+        queries: [
+            {
+                queryKey: ["user", username],
+                queryFn: () => UserService.getUser(username),
+            },
+            {
+                queryKey: ["userPosts", username],
+                queryFn: () => PostService.getUserPosts(username),
+            },
+        ],
+    });
+
+    if (userQuery.isLoading) return <div>Loading...</div>;
+    if (postsQuery.isLoading) return <div>Loading...</div>;
 
     return (
         <>
@@ -48,8 +66,8 @@ const ProfileDetailPage = () => {
                         }}
                     >
                         <UserContent
-                            user={user}
-                            posts={posts}
+                            user={userQuery.data}
+                            posts={postsQuery.data}
                             tabValue={tabValue}
                             handleTabChange={handleTabChange}
                         />
@@ -69,7 +87,7 @@ const ProfileDetailPage = () => {
                         paddingLeft={{ xs: 0, md: 3 }}
                         paddingBottom={{ xs: 3, md: 0 }}
                     >
-                        <UserInfo user={user} />
+                        <UserInfo user={userQuery.data} />
                     </Grid>
                 </Grid>
             </BootstrapContainer>

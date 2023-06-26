@@ -65,7 +65,7 @@ const RoutesList = () => {
                     element={<PostPage mode="teach" title="Recently corrected journals" />}
                 />
                 <Route path="journals/:slug" element={<PostDetailPage />} />
-                <Route path="users/:user" element={<ProfileDetailPage />} />
+                <Route path="users/:username" element={<ProfileDetailPage />} />
             </Route>
 
             {/* Protected Routes */}

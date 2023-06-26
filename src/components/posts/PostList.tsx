@@ -14,7 +14,7 @@ const PostList = ({ posts, isLoading }: PostListInterface) => {
         ? Array.from({ length: POSTS_LENGTH }).map((_, idx) => (
               <PostPreviewSkeleton key={idx} />
           ))
-        : posts.map((post) => <PostPreview key={post.id} post={post} />);
+        : posts?.map((post) => <PostPreview key={post.id} post={post} />);
 
     return <>{renderPosts}</>;
 };
