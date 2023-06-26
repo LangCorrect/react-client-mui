@@ -1,8 +1,9 @@
 import api from "./api";
 import { PostFormValues } from "../components/posts/PostForm";
 
-const getPostList = async () => {
-    const resp = await api.get(`/journals`);
+const getPostList = async (mode = "teach") => {
+    const params = { mode: mode };
+    const resp = await api.get(`/journals`, { params });
     return resp?.data?.results;
 };
 

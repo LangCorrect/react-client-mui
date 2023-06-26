@@ -1,7 +1,7 @@
 export const ACCESS_TOKEN_STORAGE_ID = "LC-access";
 export const REFRESH_TOKEN_STORAGE_ID = "LC-refresh";
 
-export const themeSettings = (mode: string) => {
+export const themeSettings = (mode: "light" | "dark") => {
     return {
         palette: {
             mode: mode,

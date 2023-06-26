@@ -10,9 +10,17 @@ import AvatarPopover from "./AvatarPopover.js";
 import LogoMarkWhite from "../../assets/logos/logo-mark-white.svg";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
-import { useContext } from "react";
-import NightlightRoundIcon from "@mui/icons-material/NightlightRound";
-import { ColorModeContext } from "../../theme.js";
+import React, { useContext, useState, MouseEvent } from "react";
+
+import SettingsIcon from "@mui/icons-material/Settings";
+import Popover from "@mui/material/Popover";
+
+import Switch from "@mui/material/Switch";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
+import { ColorModeContext } from "../../theme";
+import { RTLContext } from "../../context/RTLProvider.js";
 
 interface Props {
     onNavOpen: () => void;
@@ -23,6 +31,7 @@ const Header = ({ onNavOpen }: Props) => {
     const colorMode = useContext(ColorModeContext);
     const isMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
     const navigate = useNavigate();
+    const RtlMode = useContext(RTLContext);
     const { isAuthenticated, userInfoLoaded } = useAuth();
 
     if (!userInfoLoaded) return;
@@ -84,12 +93,48 @@ const Header = ({ onNavOpen }: Props) => {
                             {renderLogo}
                         </span>
                     </Box>
-                    <IconButton
-                        onClick={colorMode.toggleColorMode}
-                        color="inherit"
-                    >
-                        <NightlightRoundIcon />
-                    </IconButton>
+                    <LangSettingPopOver>
+                        <FormGroup>
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        size="medium"
+                                        onClick={RtlMode.toggleRTL}
+                                        checked={
+                                            theme.direction === "rtl"
+                                                ? true
+                                                : false
+                                        }
+                                    />
+                                }
+                                label="RTL"
+                                labelPlacement="start"
+                                sx={{
+                                    justifyContent: "space-between",
+                                    margin: "0px",
+                                }}
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        size="medium"
+                                        onClick={colorMode.toggleColorMode}
+                                        checked={
+                                            theme.palette.mode === "dark"
+                                                ? true
+                                                : false
+                                        }
+                                    />
+                                }
+                                label="Dark Mode"
+                                labelPlacement="start"
+                                sx={{
+                                    justifyContent: "space-between",
+                                    margin: "0px",
+                                }}
+                            />
+                        </FormGroup>
+                    </LangSettingPopOver>
                     {renderPopovers}
                 </Toolbar>
             </AppBar>
@@ -98,3 +143,43 @@ const Header = ({ onNavOpen }: Props) => {
 };
 
 export default Header;
+
+const LangSettingPopOver = ({ children }: { children: React.ReactNode }) => {
+    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? "simple-popover" : undefined;
+    return (
+        <div>
+            <IconButton color="inherit" onClick={handleClick}>
+                <SettingsIcon />
+            </IconButton>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                }}
+            >
+                <Box
+                    sx={{
+                        padding: "1rem",
+                    }}
+                >
+                    {children}
+                </Box>
+            </Popover>
+        </div>
+    );
+};

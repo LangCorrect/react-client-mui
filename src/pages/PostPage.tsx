@@ -34,20 +34,15 @@ export interface PostInterface {
     corrected_by: string[];
 }
 
-const SECTION_TITLE: { [key: string]: string } = {
-    teach: "Journals awaiting your correction",
-    learn: "Journals in the languages you’re studying",
-    recentlyCorrected: "Recently corrected journals",
-};
-
 interface IProps {
-    mode: string;
+    mode: "teach" | "learn" | "following";
+    title: string;
 }
 
-const PostPage = ({ mode }: IProps) => {
+const PostPage = ({ mode, title }: IProps) => {
     const { isLoading, isError, data } = useQuery({
-        queryKey: ["posts"],
-        queryFn: PostService.getPostList,
+        queryKey: ["posts", mode],
+        queryFn: () => PostService.getPostList(mode),
     });
 
     if (isError) return <h1>Problems loading...</h1>;
@@ -60,7 +55,7 @@ const PostPage = ({ mode }: IProps) => {
                 justifyContent="space-between"
                 mb={3}
             >
-                <Typography variant="h5">{SECTION_TITLE[mode]}</Typography>
+                <Typography variant="h5">{title}</Typography>
 
                 <Button
                     variant="contained"

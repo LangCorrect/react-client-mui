@@ -27,6 +27,8 @@
         "react-hook-form": "^7.43.9",
         "react-router-dom": "^6.11.1",
         "sanitize-html": "^2.10.0",
+        "stylis": "^4.2.0",
+        "stylis-plugin-rtl": "^2.1.1",
         "yup": "^1.1.1"
     },
     "devDependencies": {
@@ -37,6 +39,7 @@
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
         "@types/sanitize-html": "^2.9.0",
+        "@types/stylis": "^4.2.0",
         "@typescript-eslint/eslint-plugin": "^5.57.1",
         "@typescript-eslint/parser": "^5.57.1",
         "@vitejs/plugin-react": "^4.0.0",
