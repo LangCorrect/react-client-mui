@@ -51,12 +51,8 @@ const UserStats = ({ user }: UserStatsProps) => {
         <>
             <Grid container spacing={1}>
                 {stats.map(({ id, title, content }) => (
-                    <Grid item xs={12} md={6}>
-                        <StatCard
-                            key={id}
-                            title={title}
-                            content={content}
-                        ></StatCard>
+                    <Grid key={id} item xs={12} md={6}>
+                        <StatCard title={title} content={content}></StatCard>
                     </Grid>
                 ))}
             </Grid>

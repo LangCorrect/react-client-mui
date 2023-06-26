@@ -39,11 +39,7 @@ const UserContent = ({
                 id={`simple-tabpanel-${index}`}
                 aria-labelledby={`simple-tab-${index}`}
             >
-                {value === index && (
-                    <Box sx={{ py: 3 }}>
-                        <Typography>{children}</Typography>
-                    </Box>
-                )}
+                {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
             </div>
         );
     };
