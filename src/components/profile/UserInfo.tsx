@@ -53,6 +53,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
                         variant="subtitle1"
                         color="text.secondary"
                         display={{ xs: "none", md: "block" }}
+                        sx={{ wordBreak: "break-all" }}
                     >
                         {user.bio}
                     </Typography>

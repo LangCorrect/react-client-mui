@@ -26,6 +26,13 @@ export interface ICurrentUser {
     date_joined: string;
     get_studying_languages: ILanguage[];
     get_native_languages: ILanguage[];
+
+    corrections_received_count: number;
+    corrections_made_count: number;
+    correction_ratio: number;
+    posts_count: number;
+    prompts_count: number;
+    contributions_count: number;
 }
 
 export interface IAuthContext {

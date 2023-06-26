@@ -2,7 +2,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 
 interface StatCardProps {
     title: string;
-    content: string;
+    content: string | number;
 }
 
 const StatCard = ({ title, content }: StatCardProps) => (

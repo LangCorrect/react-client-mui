@@ -52,7 +52,7 @@ const UserContent = ({
         <>
             <Box display={{ xs: "none", md: "flex" }} alignItems="center">
                 <Typography variant="h3" color="primary" paddingRight={1}>
-                    {user.nick_name}
+                    {user.nick_name || user.username}
                 </Typography>
                 {user.is_premium && <Stars color="primary" fontSize="large" />}
             </Box>
@@ -75,7 +75,7 @@ const UserContent = ({
                     Display my prompts
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
-                    <UserStats />
+                    <UserStats user={user} />
                 </TabPanel>
             </Box>
         </>
