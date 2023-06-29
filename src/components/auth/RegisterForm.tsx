@@ -8,19 +8,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { GENDER_OPTIONS, LANGUAGE_OPTIONS, LEVEL_OPTIONS } from "./formData";
 import AuthAlerts from "./AuthAlerts";
+import { LANGUAGE_OPTIONS, LEVEL_OPTIONS, GENDER_OPTIONS } from "../../constants";
+import { UserRegisterFormValues } from "../../types";
 
-interface FormDataInterface extends FieldValues {
-    username: string;
-    password: string;
-    password2: string;
-    email: string;
-    native_language: string;
-    studying_language: string;
-    studying_level: string;
-    gender: string;
-}
 
 const validationSchema = yup.object().shape({
     username: yup.string().min(6).max(16).required(),
@@ -34,7 +25,7 @@ const validationSchema = yup.object().shape({
 });
 
 interface Props {
-    onRegister: (formData: FormDataInterface) => void;
+    onRegister: (formData: UserRegisterFormValues) => void;
 }
 
 const RegisterForm = ({ onRegister }: Props) => {
@@ -57,7 +48,7 @@ const RegisterForm = ({ onRegister }: Props) => {
         setRegistrationErrors(null);
 
         try {
-            const formData = data as FormDataInterface;
+            const formData = data as UserRegisterFormValues;
             await onRegister(formData);
             navigate("/login");
             reset();

@@ -1,12 +1,12 @@
 import { ListItemText, SvgIconProps, Tooltip } from "@mui/material";
 
-interface IProps {
+interface Props {
     title: string;
     value: number;
     icon: React.ReactElement<SvgIconProps>;
 }
 
-const UserStat = ({ title, value, icon }: IProps) => {
+const UserStat = ({ title, value, icon }: Props) => {
     return (
         <ListItemText
             sx={{

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { PostInterface } from "../../pages/PostPage.tsx";
 import {
     Alert,
     Avatar,
@@ -27,7 +26,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditableArticle from "./EditableArticle.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
-import { PostFormValues } from "./PostForm.tsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -37,21 +35,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Link, useNavigate } from "react-router-dom";
 import { AxiosError, isAxiosError } from "axios";
 import PostService from "../../service/post.service.tsx";
+import { Post as IPost, PostFormValues } from "../../types.ts";
 
-interface PostPreviewInterface {
-    post: PostInterface;
+interface Props {
+    post: IPost;
 }
 
-export interface ISimplePost {
-    title: string;
-    text: string;
-    native_text: string;
-    language: string;
-    gender_of_narration: string;
-    permission: string;
-}
-
-const Post = ({ post }: PostPreviewInterface) => {
+const Post = ({ post }: Props) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isEditing, setIsEditing] = useState(false);
     const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -96,7 +86,7 @@ const Post = ({ post }: PostPreviewInterface) => {
     const handleSubmit = async (data: PostFormValues) => {
         setIsEditing(false);
         handleClose();
-        mutation.mutate(data);
+        return await mutation.mutateAsync(data);
     };
 
     const handleDelete = async () => {

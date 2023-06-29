@@ -19,12 +19,12 @@ const SanitizeHTML = ({ html, options }: SanitizeProps) => (
     <div dangerouslySetInnerHTML={sanitize({ html, options })} />
 );
 
-interface IProps {
+interface Props {
     sentence: string;
     note: string;
 }
 
-const CorrectedSentence = ({ sentence, note }: IProps) => {
+const CorrectedSentence = ({ sentence, note }: Props) => {
     return (
         <ListItemText
             primary={

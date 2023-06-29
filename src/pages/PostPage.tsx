@@ -5,41 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import PostService from "../service/post.service.tsx";
 
-export interface PostInterface {
-    id: number;
-    content: {
-        title: string;
-        text: string;
-        native_text: string;
-    };
-    language: {
-        code: string;
-        en_name: string;
-    };
-    meta: {
-        slug: string;
-        tags: string[];
-        permission: string;
-        created: string;
-        modified: string;
-    };
-    gender_of_narration: string;
-    prompt: null | string;
-    language_level: null | string;
-    user: {
-        username: string;
-        id_premium: boolean;
-    };
-    total_correctors: number;
-    corrected_by: string[];
-}
-
-interface IProps {
+interface Props {
     mode: "teach" | "learn" | "following";
     title: string;
 }
 
-const PostPage = ({ mode, title }: IProps) => {
+const PostPage = ({ mode, title }: Props) => {
     const { isLoading, isError, data } = useQuery({
         queryKey: ["posts", mode],
         queryFn: () => PostService.getPostList(mode),

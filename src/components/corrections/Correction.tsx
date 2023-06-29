@@ -15,24 +15,13 @@ import "./Correction.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PerfectSentence from "./PerfectSentence";
 import CorrectedSentence from "./CorrectedSentence";
+import { Correction as ICorrection } from "../../types";
 
-export interface ICorrection {
-    id: number;
-    user: string;
-    type: "perfect" | "correction";
-    order: number;
-    original_sentence: string;
-    correction?: string;
-    note?: string;
-    pretty_html?: string;
-    correction_type?: string[];
-}
-
-export interface CorrectionPropInterface {
+interface Props {
     data: ICorrection;
 }
 
-const Correction = ({ data }: CorrectionPropInterface) => {
+const Correction = ({ data }: Props) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 

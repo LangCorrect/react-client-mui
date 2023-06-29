@@ -3,11 +3,11 @@ import Header from "./header/Header";
 import Navbar from "./navbar/Navbar";
 import Footer from "./Footer";
 
-interface IProps {
+interface Props {
     children: ReactNode;
 }
 
-const BaseLayout = ({ children }: IProps) => {
+const BaseLayout = ({ children }: Props) => {
     const [open, setOpen] = useState<boolean>(false);
 
     return (

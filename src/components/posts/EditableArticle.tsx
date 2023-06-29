@@ -1,17 +1,17 @@
 import Article from "./Article";
 import { CardContent } from "@mui/material";
-import PostForm, { PostFormValues } from "./PostForm";
-import { ISimplePost } from "./Post";
+import PostForm from "./PostForm";
 import { AxiosResponse } from "axios";
+import { PostFormValues } from "../../types";
 
-interface IProps {
-    post: ISimplePost;
+interface Props {
+    post: PostFormValues;
     isEditing: boolean;
     onSubmit: (data: PostFormValues) => Promise<AxiosResponse>;
     onDiscard: () => void;
 }
 
-const EditableArticle = ({ post, isEditing, onSubmit, onDiscard }: IProps) => {
+const EditableArticle = ({ post, isEditing, onSubmit, onDiscard }: Props) => {
     return (
         <>
             {isEditing ? (
@@ -26,7 +26,7 @@ const EditableArticle = ({ post, isEditing, onSubmit, onDiscard }: IProps) => {
                 <Article
                     title={post.title}
                     text={post.text}
-                    nativeText={post.native_text}
+                    native_text={post.native_text}
                 />
             )}
         </>

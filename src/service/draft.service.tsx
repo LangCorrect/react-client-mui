@@ -1,7 +1,7 @@
-import { ICorrectionDraft } from "../pages/MakeCorrectionPage";
 import api from "./api";
+import { CorrectionDraft } from "../types";
 
-const createDraft = async (data: ICorrectionDraft) => {
+const createDraft = async (data: CorrectionDraft) => {
     const resp = await api.post(`drafts/`, data);
     return resp?.data;
 };

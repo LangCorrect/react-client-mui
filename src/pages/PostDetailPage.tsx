@@ -10,15 +10,14 @@ import {
     Tooltip,
     Typography,
 } from "@mui/material";
-import UserCorrections, {
-    IUserCorrections,
-} from "../components/corrections/UserCorrections";
 import { useQueries } from "@tanstack/react-query";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import PostPreviewSkeleton from "../components/posts/PostPreviewSkeleton";
 import UserCorrectionSkeleton from "../components/corrections/UserCorrectionSkeleton";
 import PostService from "../service/post.service";
 import CorrectionService from "../service/correction.service";
+import UserCorrections from "../components/corrections/UserCorrections";
+import { UserCorrection as IUserCorrection } from "../types";
 
 const PostDetailPage = () => {
     const params = useParams();
@@ -74,7 +73,7 @@ const PostDetailPage = () => {
             </Stack>
 
             <Stack gap={5}>
-                {correctionsQuery.data?.map((correction: IUserCorrections) => (
+                {correctionsQuery.data?.map((correction: IUserCorrection) => (
                     <UserCorrections
                         key={correction.username}
                         username={correction.username}

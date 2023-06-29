@@ -2,29 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import CorrectionCard from "../components/corrections/CorrectionCard";
-import { ICorrection } from "../components/corrections/Correction";
 import React, { useState } from "react";
 import SnackBar from "../layouts/SnackBar";
 import CorrectionService from "../service/correction.service";
 import DraftService from "../service/draft.service";
+import { CorrectionDraft, CorrectionRow } from "../types";
 
-interface IFullCorrection extends ICorrection {
-    is_published: string;
-}
-
-interface IRow {
-    postrow_id: number;
-    original_sentence: string;
-    correction: IFullCorrection;
-    is_perfect_count?: number;
-}
-
-export interface ICorrectionDraft {
-    draft_type: "correction" | "perfect";
-    post_row_id: number;
-    correction?: string;
-    note?: string;
-}
 
 const MakeCorrectionPage = () => {
     const params = useParams();
@@ -41,7 +24,7 @@ const MakeCorrectionPage = () => {
     );
 
     const mutation = useMutation({
-        mutationFn: async (data: ICorrectionDraft) => {
+        mutationFn: async (data: CorrectionDraft) => {
             setErrMsg(null);
             return await DraftService.createDraft(data);
         },
@@ -97,7 +80,7 @@ const MakeCorrectionPage = () => {
             {errMsg && <SnackBar message={errMsg} severity="error" />}
 
             <Typography mb={3}>Make a correction</Typography>
-            {query.data.correction_data?.map((row: IRow) => (
+            {query.data.correction_data?.map((row: CorrectionRow) => (
                 <Box mb={2} key={row.postrow_id}>
                     <CorrectionCard
                         prid={row.postrow_id}
