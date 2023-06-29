@@ -9,7 +9,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import HomeIcon from "@mui/icons-material/Home";
-
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 
@@ -86,6 +86,16 @@ const Navbar = ({ isNavOpen, onNavClose }: NavbarProps) => {
                             </ListItemButton>
                         </List>
                     </Collapse>
+                    <ListItemButton
+                        component={Link}
+                        to="/rankings"
+                        onClick={onNavClose}
+                    >
+                        <ListItemIcon>
+                            <EmojiEventsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Rankings" />
+                    </ListItemButton>
                 </List>
             </Box>
         </Drawer>
