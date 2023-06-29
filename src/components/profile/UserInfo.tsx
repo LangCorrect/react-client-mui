@@ -1,4 +1,4 @@
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button, Box, Avatar } from "@mui/material";
 import { Stars, Mail } from "@mui/icons-material";
 import { ICurrentUser } from "../../context/AuthProvider";
 
@@ -17,17 +17,18 @@ const UserInfo = ({ user }: UserInfoProps) => {
                 rowGap={1}
             >
                 {/* Avatar */}
-                <Box
-                    component="img"
-                    src="https://thumb9.shutterstock.com/image-photo/stock-photo-head-shot-portrait-close-up-smiling-confident-businessman-wearing-glasses-looking-at-camera-250nw-1714666150.jpg"
-                    alt="profile-pic"
+                <Avatar
+                    aria-label={user.username}
                     sx={{
+                        fontSize: "3rem",
                         width: { xs: 100, md: 150 },
                         height: { xs: 100, md: 150 },
                         objectFit: "cover",
                         borderRadius: "50%",
                     }}
-                />
+                >
+                    {user.username.slice(0, 1)}
+                </Avatar>
                 <Box>
                     {/* Username */}
                     <Box display="flex" alignItems="center" gap={1}>
