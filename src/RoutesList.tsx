@@ -11,6 +11,7 @@ import useAuth from "./hooks/useAuth.tsx";
 import CreatePostPage from "./pages/CreatePostPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import MakeCorrectionPage from "./pages/MakeCorrectionPage.tsx";
+import RankingPage from "./pages/RankingPage.tsx";
 
 const RoutesList = () => {
     const authContext = useAuth();
@@ -64,6 +65,7 @@ const RoutesList = () => {
                     element={<PostPage mode="teach" title="Recently corrected journals" />}
                 />
                 <Route path="journals/:slug" element={<PostDetailPage />} />
+                <Route path="rankings" element={<RankingPage />} />
             </Route>
 
             {/* Protected Routes */}
