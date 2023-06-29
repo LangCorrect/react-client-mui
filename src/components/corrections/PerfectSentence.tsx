@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
-interface IProps {
+interface Props {
     sentence: string;
 }
 
-const PerfectSentence = ({ sentence }: IProps) => {
+const PerfectSentence = ({ sentence }: Props) => {
     return (
         <Typography color="success.main">
             <Box component="span" display="flex" alignItems="center" gap={1}>

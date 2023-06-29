@@ -16,15 +16,6 @@ import React, { useState } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import CreateIcon from "@mui/icons-material/Create";
 
-/**
- * Renders the notification list
- *
- * State:
- * - open
- * - anchorEl
- *
- * {Header} -> NotificationsPopover
- */
 
 const NotificationsPopover = () => {
     const theme = useTheme();

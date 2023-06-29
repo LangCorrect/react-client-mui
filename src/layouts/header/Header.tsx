@@ -32,9 +32,11 @@ const Header = ({ onNavOpen }: Props) => {
     const isMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
     const navigate = useNavigate();
     const RtlMode = useContext(RTLContext);
-    const { isAuthenticated, userInfoLoaded } = useAuth();
 
-    if (!userInfoLoaded) return;
+    const authContext = useAuth();
+    if(!authContext) return <p>Loading...</p>
+    const { isAuthenticated, userInfoLoaded } = authContext;
+    if (!userInfoLoaded) return <p>Loading...</p>;
 
     const renderMenuIcon = userInfoLoaded ? (
         isAuthenticated && (

@@ -1,12 +1,7 @@
 import { Box, CardContent, Typography } from "@mui/material";
+import { PostContent } from "../../types";
 
-interface ArticleInterface {
-    title: string;
-    text: string;
-    nativeText?: string;
-}
-
-const Article = ({ title, text, nativeText }: ArticleInterface) => {
+const Article = ({ title, text, nativeText }: PostContent) => {
     return (
         <CardContent>
             <Typography mb={2} variant="h5" component="div">

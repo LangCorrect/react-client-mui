@@ -16,29 +16,23 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useCallback, useEffect, useState } from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { debounce } from "../decorators/debounce";
-import { ICorrectionDraft } from "../../pages/MakeCorrectionPage";
 // import ErrorIcon from "@mui/icons-material/Error";
 import PerfectSentence from "./PerfectSentence";
-import { ICorrection } from "./Correction";
-
-type CorrectionFormValues = {
-    correction?: string;
-    note?: string;
-};
+import { CorrectionDraft, Correction, CorrectionFormValues } from "../../types";
 
 const validationSchema = yup.object().shape({
     correction: yup.string(),
     note: yup.string(),
 });
 
-interface IProps {
+interface Props {
     prid: number;
     original_sentence: string;
-    onDraftSave: (data: ICorrectionDraft) => void;
+    onDraftSave: (data: CorrectionDraft) => void;
     onDelete: (data: { rowId: number; type: "perfect" | "correction" }) => void;
     isCorrected: boolean;
-    correction: ICorrection;
-    isPublished: string;
+    correction: Correction;
+    isPublished: string; // TODO: change to boolean
 }
 
 const CorrectionCard = ({
@@ -49,7 +43,7 @@ const CorrectionCard = ({
     isCorrected,
     correction,
     isPublished,
-}: IProps) => {
+}: Props) => {
     const [showForm, setShowForm] = useState<boolean>(
         correction?.type === "correction" || false,
     );
@@ -88,7 +82,7 @@ const CorrectionCard = ({
             setIsProcessed(false);
             reset();
         } catch (err) {
-            //    
+            //
         }
     };
 

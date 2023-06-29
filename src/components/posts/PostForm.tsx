@@ -16,28 +16,8 @@ import {
 } from "@mui/material";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
-import { ISimplePost } from "./Post";
 import { AxiosError, AxiosResponse, isAxiosError } from "axios";
-
-// export interface IPostFormData extends FieldValues {
-//     title: string;
-//     text: string;
-//     native_text?: string;
-//     language: string;
-//     gender_of_narration: string;
-//     permission?: string;
-//     tags?: string;
-// }
-
-export type PostFormValues = {
-    title: string;
-    text: string;
-    native_text?: string;
-    language: string;
-    gender_of_narration: string;
-    permission?: string;
-    tags?: string;
-};
+import { PostFormValues } from "../../types";
 
 const validationSchema = yup.object().shape({
     title: yup.string().max(60).required(),
@@ -49,13 +29,13 @@ const validationSchema = yup.object().shape({
     // tags: yup.string(),
 });
 
-interface IProps {
-    post: ISimplePost | undefined;
+interface Props {
+    post: PostFormValues | undefined;
     onSubmit: (data: PostFormValues) => Promise<AxiosResponse>;
     onDiscard: () => void;
 }
 
-const PostForm = ({ post, onSubmit, onDiscard }: IProps) => {
+const PostForm = ({ post, onSubmit, onDiscard }: Props) => {
     const navigate = useNavigate();
     const isEditing = post !== undefined && Object.keys(post).length > 0;
     const [errMsg, setErrMsg] = useState("");

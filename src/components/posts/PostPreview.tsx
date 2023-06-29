@@ -1,6 +1,5 @@
 import React from "react";
 
-import { PostInterface } from "../../pages/PostPage.tsx";
 import {
     Avatar,
     Button,
@@ -26,12 +25,13 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { Link } from "react-router-dom";
 import Article from "./Article.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
+import { Post } from "../../types.ts";
 
-interface PostPreviewInterface {
-    post: PostInterface;
+interface Props {
+    post: Post;
 }
 
-const PostPreview = ({ post }: PostPreviewInterface) => {
+const PostPreview = ({ post }: Props) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 

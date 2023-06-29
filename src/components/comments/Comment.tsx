@@ -1,12 +1,12 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 
-export interface CommentInterface {
+interface Props {
     id: string;
     username: string;
     text: string;
 }
 
-const Comment = ({ username, text }: CommentInterface) => {
+const Comment = ({ username, text }: Props) => {
     return (
         <ListItem alignItems="flex-start">
             <ListItemAvatar>

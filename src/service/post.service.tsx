@@ -1,5 +1,5 @@
 import api from "./api";
-import { PostFormValues } from "../components/posts/PostForm";
+import { PostFormValues } from "../types";
 
 const getPostList = async (mode = "teach") => {
     const params = { mode: mode };
