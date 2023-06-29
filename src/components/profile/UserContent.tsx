@@ -4,7 +4,7 @@ import { ICurrentUser } from "../../context/AuthProvider";
 import { PostInterface } from "../../pages/PostPage";
 import PostList from "../posts/PostList";
 import UserAbout from "./UserAbout";
-import { Prompt } from "./Prompt";
+import { Prompt } from "./PromptPreview";
 import PromptList from "./PromptsList";
 
 interface UserContentProps {

@@ -1,4 +1,4 @@
-import { Prompt } from "./Prompt";
+import PromptPreview, { Prompt } from "./PromptPreview";
 
 interface PromptListProps {
     prompts: Prompt[];
@@ -8,7 +8,7 @@ const PromptList = ({ prompts }: PromptListProps) => {
     return (
         <>
             {prompts.map((prompt) => (
-                <div key={prompt.id}>{prompt.content}</div>
+                <PromptPreview prompt={prompt} key={prompt.id} />
             ))}
         </>
     );
