@@ -11,12 +11,14 @@ import { useQuery } from "@tanstack/react-query";
 import RankingService from "../service/ranking.service";
 import UserStat from "../components/rankings/UserStat";
 import React from "react";
+import RankingSkeleton from "../components/rankings/RankingSkeleton";
 
 interface IRanking {
     username: string;
     total: number;
     posts: number;
     corrections: number;
+    joined: string;
 }
 
 const userStats: Array<{
@@ -33,48 +35,52 @@ const userStats: Array<{
     },
 ];
 
+const RANKINGS_LENGTH = 50;
+
 const RankingPage = () => {
-    const { isLoading, data } = useQuery({
+    const { isLoading, isError, data } = useQuery({
         queryKey: ["rankings"],
         queryFn: RankingService.getRankings,
     });
 
-    // TODO: Create a skeleton component
-    if (isLoading) return <p>Loading...</p>;
+    const renderItems = isLoading
+        ? Array.from({ length: RANKINGS_LENGTH }).map((_, idx) => (
+              <RankingSkeleton key={idx} />
+          ))
+        : data.map((ranking: IRanking) => (
+              <React.Fragment key={ranking.username}>
+                  <ListItem key={ranking.username}>
+                      <ListItemAvatar>
+                          <Avatar alt={ranking.username}>
+                              {ranking.username.slice(0, 2)}
+                          </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText
+                          primary={ranking.username}
+                          secondary={`Member since ${ranking.joined}`}
+                      />
+
+                      <List sx={{ display: "flex", gap: 2 }}>
+                          {userStats.map(({ title, icon: Icon, key }) => (
+                              <UserStat
+                                  key={key}
+                                  title={title}
+                                  value={ranking[key] as number}
+                                  icon={Icon}
+                              />
+                          ))}
+                      </List>
+                  </ListItem>
+                  <Divider />
+              </React.Fragment>
+          ));
+
+    if (isError) return <Typography>Problems loading...</Typography>;
 
     return (
         <>
             <Typography variant="h5">Rankings</Typography>
-
-            <List>
-                {data.map((ranking: IRanking) => (
-                    <React.Fragment key={ranking.username}>
-                        <ListItem key={ranking.username}>
-                            <ListItemAvatar>
-                                <Avatar alt={ranking.username}>
-                                    {ranking.username.slice(0, 2)}
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={ranking.username}
-                                secondary="Member since 2022"
-                            />
-
-                            <List sx={{ display: "flex", gap: 2 }}>
-                                {userStats.map(({ title, icon: Icon, key }) => (
-                                    <UserStat
-                                        key={key}
-                                        title={title}
-                                        value={ranking[key] as number}
-                                        icon={Icon}
-                                    />
-                                ))}
-                            </List>
-                        </ListItem>
-                        <Divider />
-                    </React.Fragment>
-                ))}
-            </List>
+            <List>{renderItems}</List>
         </>
     );
 };
