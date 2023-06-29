@@ -31,7 +31,7 @@ const ProfileDetailPage = () => {
         setTabValue(newValue);
     };
 
-    const [userQuery, postsQuery] = useQueries({
+    const [userQuery, postsQuery, promptsQuery] = useQueries({
         queries: [
             {
                 queryKey: ["user", username],
@@ -41,11 +41,16 @@ const ProfileDetailPage = () => {
                 queryKey: ["userPosts", username],
                 queryFn: () => PostService.getUserPosts(username),
             },
+            {
+                queryKey: ["userPrompts", username],
+                queryFn: () => UserService.getUserPrompts(username),
+            },
         ],
     });
 
     if (userQuery.isLoading) return <div>Loading...</div>;
     if (postsQuery.isLoading) return <div>Loading...</div>;
+    if (promptsQuery.isLoading) return <div>Loading...</div>;
 
     return (
         <>
@@ -68,6 +73,7 @@ const ProfileDetailPage = () => {
                         <UserContent
                             user={userQuery.data}
                             posts={postsQuery.data}
+                            prompts={promptsQuery.data}
                             tabValue={tabValue}
                             handleTabChange={handleTabChange}
                         />

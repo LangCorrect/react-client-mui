@@ -4,10 +4,13 @@ import { ICurrentUser } from "../../context/AuthProvider";
 import { PostInterface } from "../../pages/PostPage";
 import PostList from "../posts/PostList";
 import UserAbout from "./UserAbout";
+import { Prompt } from "./Prompt";
+import PromptList from "./PromptsList";
 
 interface UserContentProps {
     user: ICurrentUser;
     posts: PostInterface[];
+    prompts: Prompt[];
     tabValue: number;
     handleTabChange: (_event: React.SyntheticEvent, newValue: number) => void;
 }
@@ -21,6 +24,7 @@ interface TabPanelProps {
 const UserContent = ({
     user,
     posts,
+    prompts,
     tabValue,
     handleTabChange,
 }: UserContentProps) => {
@@ -68,7 +72,7 @@ const UserContent = ({
                     <PostList posts={posts} isLoading={false} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    Display my prompts
+                    <PromptList prompts={prompts} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
                     <UserAbout user={user} />
