@@ -5,11 +5,28 @@ export interface Language {
     en_name: string;
 }
 
+// These have been commented out as they have not been implemented yet
+
+// export enum LanguageLevels {
+//     A1 = "Beginner",
+//     A2 = "Elementary",
+//     B1 = "Intermediate",
+//     B2 = "Upper-Intermediate",
+//     C1 = "Advanced",
+//     C2 = "Proficient",
+// }
+
+// export enum Gender {
+//     M = "Male",
+//     F = "Female",
+//     O = "Other",
+//     U = "Prefer not to say"
+// }
+
 export interface PostContent {
     title: string;
     text: string;
     native_text?: string;
-    nativeText?: string; // TODO: refactor this
 }
 
 export interface PostMeta {
@@ -72,7 +89,7 @@ export interface Correction {
     note?: string;
     pretty_html?: string;
     correction_type?: string[];
-    is_published?: string; // TODO: change to boolean
+    is_published?: boolean;
 }
 
 export type CorrectionFormValues = {

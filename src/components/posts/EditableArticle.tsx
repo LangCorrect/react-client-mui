@@ -26,7 +26,7 @@ const EditableArticle = ({ post, isEditing, onSubmit, onDiscard }: Props) => {
                 <Article
                     title={post.title}
                     text={post.text}
-                    nativeText={post.native_text}
+                    native_text={post.native_text}
                 />
             )}
         </>

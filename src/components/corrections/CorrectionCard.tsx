@@ -32,7 +32,7 @@ interface Props {
     onDelete: (data: { rowId: number; type: "perfect" | "correction" }) => void;
     isCorrected: boolean;
     correction: Correction;
-    isPublished: string; // TODO: change to boolean
+    isPublished: boolean | undefined;
 }
 
 const CorrectionCard = ({
@@ -147,7 +147,7 @@ const CorrectionCard = ({
                 </CardContent>
 
                 <CardActions disableSpacing>
-                    {isPublished == "False" && (
+                    {!isPublished && isPublished !== undefined && (
                         <>
                             <Tooltip
                                 title="This correction has been saved as a draft and will be visible when you publish your corrections."

@@ -1,7 +1,7 @@
 import { Box, CardContent, Typography } from "@mui/material";
 import { PostContent } from "../../types";
 
-const Article = ({ title, text, nativeText }: PostContent) => {
+const Article = ({ title, text, native_text }: PostContent) => {
     return (
         <CardContent>
             <Typography mb={2} variant="h5" component="div">
@@ -26,7 +26,7 @@ const Article = ({ title, text, nativeText }: PostContent) => {
                         whiteSpace: "break-spaces",
                     }}
                 >
-                    {nativeText}
+                    {native_text}
                 </Typography>
             </Box>
         </CardContent>

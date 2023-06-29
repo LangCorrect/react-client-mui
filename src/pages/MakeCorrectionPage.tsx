@@ -88,7 +88,7 @@ const MakeCorrectionPage = () => {
                         isCorrected={row.correction !== null}
                         correction={row?.correction}
                         onDraftSave={mutation.mutate}
-                        isPublished={row.correction?.is_published || ""} // TODO: Change to boolean
+                        isPublished={row.correction?.is_published}
                         onDelete={deleteMutation.mutate}
                     />
                 </Box>
