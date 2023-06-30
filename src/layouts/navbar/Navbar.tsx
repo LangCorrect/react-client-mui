@@ -9,28 +9,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import HomeIcon from "@mui/icons-material/Home";
-
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
+import { NAV_WIDTH } from "../../constants";
 
-export interface NavbarProps {
+interface Props {
     isNavOpen: boolean;
     onNavClose: () => void;
 }
 
-const NAV_WIDTH = 250;
-
-/**
- * Renders the navbar component
- *
- * Props:
- * - isNavOpen
- * - onNavClose
- *
- * {SimpleLayout} -> Navbar
- */
-
-const Navbar = ({ isNavOpen, onNavClose }: NavbarProps) => {
+const Navbar = ({ isNavOpen, onNavClose }: Props) => {
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
@@ -86,6 +75,16 @@ const Navbar = ({ isNavOpen, onNavClose }: NavbarProps) => {
                             </ListItemButton>
                         </List>
                     </Collapse>
+                    <ListItemButton
+                        component={Link}
+                        to="/rankings"
+                        onClick={onNavClose}
+                    >
+                        <ListItemIcon>
+                            <EmojiEventsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Rankings" />
+                    </ListItemButton>
                 </List>
             </Box>
         </Drawer>

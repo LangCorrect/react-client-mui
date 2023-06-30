@@ -12,6 +12,7 @@ import CreatePostPage from "./pages/CreatePostPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import ProfileDetailPage from "./pages/ProfileDetailPage.tsx";
 import MakeCorrectionPage from "./pages/MakeCorrectionPage.tsx";
+import RankingPage from "./pages/RankingPage.tsx";
 
 const RoutesList = () => {
     const authContext = useAuth();
@@ -47,7 +48,10 @@ const RoutesList = () => {
                         !isAuthenticated ? (
                             <IndexPage />
                         ) : (
-                            <PostPage mode="teach" title="Journals awaiting your correction" />
+                            <PostPage
+                                mode="teach"
+                                title="Journals awaiting your correction"
+                            />
                         )
                     }
                 />
@@ -62,10 +66,16 @@ const RoutesList = () => {
             <Route element={<LayoutWithContainer />}>
                 <Route
                     path="/journals"
-                    element={<PostPage mode="teach" title="Recently corrected journals" />}
+                    element={
+                        <PostPage
+                            mode="teach"
+                            title="Recently corrected journals"
+                        />
+                    }
                 />
                 <Route path="journals/:slug" element={<PostDetailPage />} />
                 <Route path="users/:username" element={<ProfileDetailPage />} />
+                <Route path="rankings" element={<RankingPage />} />
             </Route>
 
             {/* Protected Routes */}

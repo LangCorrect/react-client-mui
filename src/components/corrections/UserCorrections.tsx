@@ -14,32 +14,20 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import Correction, { ICorrection } from "./Correction";
+import Correction from "./Correction";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CorrectionComments from "./CorrectionComments";
-import { CommentInterface } from "../comments/Comment";
+import { UserCorrection } from "../../types";
 
-interface IOverallFeedback {
-    id?: string;
-    comment?: string;
-    username?: string;
-}
-
-export interface IUserCorrections {
-    username: string;
-    corrections: ICorrection[];
-    comments: CommentInterface[];
-    overall_feedback: IOverallFeedback[];
-}
 
 const UserCorrections = ({
     username,
     corrections,
     comments,
     overall_feedback,
-}: IUserCorrections) => {
+}: UserCorrection) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {

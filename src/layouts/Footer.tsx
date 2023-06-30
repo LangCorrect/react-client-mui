@@ -17,7 +17,7 @@ interface FooterItems {
     url: string;
 }
 
-const UrlTextList = (props: { items: Array<FooterItems> }) => (
+const UrlTextList = (props: { items: FooterItems[] }) => (
     <List sx={{ py: 0 }}>
         {props.items.map((item) => (
             <ListItem

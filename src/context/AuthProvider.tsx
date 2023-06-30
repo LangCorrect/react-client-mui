@@ -9,45 +9,21 @@ import {
 import api from "../service/api";
 import TokenService from "../service/token.service";
 import UserService from "../service/user.service";
-
-interface ILanguage {
-    code: string;
-    en_name: string;
-}
-
-export interface ICurrentUser {
-    id: number;
-    username: string;
-    nick_name: string;
-    bio: string;
-    gender: string;
-    is_premium: boolean;
-    user_role: string;
-    date_joined: string;
-    get_studying_languages: ILanguage[];
-    get_native_languages: ILanguage[];
-
-    corrections_received_count: number;
-    corrections_made_count: number;
-    correction_ratio: number;
-    posts_count: number;
-    prompts_count: number;
-    contributions_count: number;
-}
+import { User } from "../types";
 
 export interface IAuthContext {
-    currentUser: ICurrentUser | null;
+    currentUser: User | null;
     refreshToken: string | null;
     accessToken: string | null;
     isAuthenticated: boolean;
     userInfoLoaded: boolean;
     logout: () => void;
-    setCurrentUser: (user: ICurrentUser | null) => void;
+    setCurrentUser: (user: User | null) => void;
     setRefreshToken: (token: string) => void;
     setAccessToken: (token: string) => void;
 }
 
-interface IDecodeToken {
+interface DecodeToken {
     token_type: string;
     exp: number;
     iat: number;
@@ -78,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [refreshToken, setRefreshToken] = useLocalStorage(
         REFRESH_TOKEN_STORAGE_ID,
     );
-    const [currentUser, setCurrentUser] = useState<ICurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
 
     const [userInfoLoaded, setUserInfoLoaded] = useState(false);
 
@@ -95,7 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         async function fetchUser() {
             if (accessToken) {
-                const decodedToken = jwtDecode<IDecodeToken>(accessToken);
+                const decodedToken = jwtDecode<DecodeToken>(accessToken);
                 const { username } = decodedToken;
                 const user = await UserService.getUser(username);
                 setCurrentUser(user);

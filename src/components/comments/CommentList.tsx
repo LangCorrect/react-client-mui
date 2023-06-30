@@ -1,11 +1,12 @@
 import { List } from "@mui/material";
-import Comment, { CommentInterface } from "./Comment";
+import Comment from "./Comment";
+import { Comment as IComment } from "../../types";
 
-interface CommentListProps {
-    comments: CommentInterface[];
+interface Props {
+    comments: IComment[];
 }
 
-const CommentList = ({ comments }: CommentListProps) => {
+const CommentList = ({ comments }: Props) => {
     return (
         <List disablePadding>
             {comments.map((comment) => (

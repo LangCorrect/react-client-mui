@@ -4,13 +4,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CommentList from "../comments/CommentList";
 import { Typography } from "@mui/material";
-import { CommentInterface } from "../comments/Comment";
+import { Comment } from "../../types";
 
-interface CorrectionCommentsProp {
-    comments: CommentInterface[];
+interface Props {
+    comments: Comment[];
 }
 
-const CorrectionComments = ({ comments }: CorrectionCommentsProp) => {
+const CorrectionComments = ({ comments }: Props) => {
     return (
         <Accordion defaultExpanded>
             <AccordionSummary

@@ -15,7 +15,9 @@ const AvatarPopover = () => {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const navigate = useNavigate();
 
-    const { currentUser, logout } = useAuth();
+    const authContext = useAuth();
+    if(!authContext) return <p>Loading...</p>
+    const { currentUser, logout } = authContext;
 
     const handleOpen = (evt: React.MouseEvent<HTMLButtonElement>) => {
         setOpen(true);

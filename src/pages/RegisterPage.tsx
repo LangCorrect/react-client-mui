@@ -9,10 +9,11 @@ import {
 } from "@mui/material";
 import RegisterForm from "../components/auth/RegisterForm";
 import { Link } from "react-router-dom";
-import AuthService, { IRegisterUser } from "../service/auth.service";
+import AuthService from "../service/auth.service";
+import { UserRegisterFormValues } from "../types";
 
 const RegisterPage = () => {
-    const register = async (formData: IRegisterUser) =>
+    const register = async (formData: UserRegisterFormValues) =>
         AuthService.register(formData);
 
     return (

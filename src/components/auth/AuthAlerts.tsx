@@ -1,10 +1,10 @@
 import { Alert } from "@mui/material";
 
-interface Prop {
+interface Props {
     messages: string[];
 }
 
-const AuthAlerts = ({ messages }: Prop) => {
+const AuthAlerts = ({ messages }: Props) => {
     return (
         <>
             {messages.map((msg, idx) => (

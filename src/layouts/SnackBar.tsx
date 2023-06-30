@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import { Alert } from "@mui/material";
 
-interface IProps {
+interface Props {
     message: string;
     severity?: "error" | "success";
 }
 
-const SnackBar = ({ message, severity }: IProps) => {
+const SnackBar = ({ message, severity }: Props) => {
     const [open, setOpen] = useState(true);
 
     const handleClose = (
-        event: React.SyntheticEvent | Event,
+        _event: React.SyntheticEvent | Event,
         reason?: string,
     ) => {
         if (reason === "clickaway") {

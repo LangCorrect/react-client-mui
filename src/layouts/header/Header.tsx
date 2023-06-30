@@ -32,23 +32,23 @@ const Header = ({ onNavOpen }: Props) => {
     const isMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
     const navigate = useNavigate();
     const RtlMode = useContext(RTLContext);
-    const { isAuthenticated, userInfoLoaded } = useAuth();
 
-    if (!userInfoLoaded) return;
+    const authContext = useAuth();
+    if (!authContext) return <p>Loading...</p>;
+    const { isAuthenticated, userInfoLoaded } = authContext;
+    if (!userInfoLoaded) return <p>Loading...</p>;
 
     const renderMenuIcon = userInfoLoaded ? (
-        isAuthenticated && (
-            <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-                onClick={onNavOpen}
-            >
-                <MenuIcon />
-            </IconButton>
-        )
+        <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={onNavOpen}
+        >
+            <MenuIcon />
+        </IconButton>
     ) : (
         <Skeleton variant="circular" width={42} height={42} />
     );
