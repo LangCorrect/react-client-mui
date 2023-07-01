@@ -8,18 +8,12 @@ import { useParams } from "react-router-dom";
 import UserService from "../service/user.service";
 import { useQueries } from "@tanstack/react-query";
 import PostService from "../service/post.service";
-// import mockPostsData from "../mockData/mockPosts";
-// import mockUserData from "../mockData/mockUser";
 
 interface Params {
     username: string;
 }
 
 const ProfileDetailPage = () => {
-    // Mock data for when the API is not working
-    // const user = mockUserData;
-    // const userPosts = mockPostsData;
-
     const { username } = useParams<keyof Params>() as Params;
 
     const [tabValue, setTabValue] = useState(0);

@@ -1,15 +1,14 @@
 import { Typography, Box, Tabs, Tab } from "@mui/material";
 import { Stars } from "@mui/icons-material";
-import { ICurrentUser } from "../../context/AuthProvider";
-import { PostInterface } from "../../pages/PostPage";
+import { Post, User } from "../../types";
 import PostList from "../posts/PostList";
 import UserAbout from "./UserAbout";
 import { Prompt } from "./PromptPreview";
 import PromptList from "./PromptsList";
 
 interface UserContentProps {
-    user: ICurrentUser;
-    posts: PostInterface[];
+    user: User;
+    posts: Post[];
     prompts: Prompt[];
     tabValue: number;
     handleTabChange: (_event: React.SyntheticEvent, newValue: number) => void;

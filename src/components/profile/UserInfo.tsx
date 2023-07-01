@@ -1,9 +1,9 @@
 import { Typography, Button, Box, Avatar } from "@mui/material";
 import { Stars, Mail } from "@mui/icons-material";
-import { ICurrentUser } from "../../context/AuthProvider";
+import { User } from "../../types";
 
 interface UserInfoProps {
-    user: ICurrentUser;
+    user: User;
 }
 
 const UserInfo = ({ user }: UserInfoProps) => {

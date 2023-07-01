@@ -95,7 +95,7 @@ export interface Correction {
 export type CorrectionFormValues = {
     correction?: string;
     note?: string;
-}
+};
 
 export interface CorrectionRow {
     postrow_id: number;
@@ -117,7 +117,7 @@ export interface OverallFeedback {
     username?: string;
 }
 
-export interface Comment{
+export interface Comment {
     id: string;
     username: string;
     text: string;
@@ -130,7 +130,6 @@ export interface UserCorrection {
     overall_feedback: OverallFeedback[];
 }
 
-
 export interface User {
     id: number;
     username: string;
@@ -142,6 +141,12 @@ export interface User {
     date_joined: string;
     get_studying_languages: Language[];
     get_native_languages: Language[];
+    corrections_made_count: number;
+    corrections_received_count: number;
+    correction_ratio: number;
+    contributions_count: number;
+    posts_count: number;
+    prompts_count: number;
 }
 
 export type UserRegisterFormValues = {
@@ -153,4 +158,4 @@ export type UserRegisterFormValues = {
     studying_language: string;
     studying_level: string;
     gender: string;
-}
+};

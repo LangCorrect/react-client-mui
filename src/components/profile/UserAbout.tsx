@@ -1,10 +1,10 @@
 import { Divider, Grid, Typography, Box } from "@mui/material";
 import StatCard from "./StatCard";
-import { ICurrentUser } from "../../context/AuthProvider";
+import { User } from "../../types";
 import { Info } from "@mui/icons-material";
 
 interface UserStatsProps {
-    user: ICurrentUser;
+    user: User;
 }
 
 interface InfoHeaderProps {
