@@ -18,7 +18,7 @@ interface Language {
 
 const InfoHeader = ({ header }: InfoHeaderProps) => (
     <Box display="flex" alignItems="center" gap={1} marginBottom={1}>
-        <Info />
+        <Info color="primary" />
         <Typography variant="body1" color="text.secondary">
             {header}
         </Typography>

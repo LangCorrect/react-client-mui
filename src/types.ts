@@ -159,3 +159,21 @@ export type UserRegisterFormValues = {
     studying_level: string;
     gender: string;
 };
+
+export interface Followers {
+    count: number;
+    next: null;
+    previous: null;
+    results: {
+        username: string;
+    }[];
+}
+
+export interface Following {
+    count: number;
+    next: null;
+    previous: null;
+    results: {
+        username: string;
+    }[];
+}

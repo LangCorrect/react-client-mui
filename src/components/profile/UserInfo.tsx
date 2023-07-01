@@ -1,12 +1,14 @@
 import { Typography, Button, Box, Avatar } from "@mui/material";
 import { Stars, Mail } from "@mui/icons-material";
-import { User } from "../../types";
+import { Followers, Following, User } from "../../types";
 
 interface UserInfoProps {
     user: User;
+    followers: Followers;
+    followings: Following;
 }
 
-const UserInfo = ({ user }: UserInfoProps) => {
+const UserInfo = ({ user, followers, followings }: UserInfoProps) => {
     return (
         <>
             <Box
@@ -45,9 +47,39 @@ const UserInfo = ({ user }: UserInfoProps) => {
                     <Typography variant="subtitle1" color="text.secondary">
                         @{user.username}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
-                        2 followers
-                    </Typography>
+                    <Box>
+                        <Typography
+                            variant="body1"
+                            fontWeight="bold"
+                            color="text.secondary"
+                            display="inline"
+                        >
+                            {followers.count}{" "}
+                        </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            display="inline"
+                            marginRight={1}
+                        >
+                            followers
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            fontWeight="bold"
+                            color="text.secondary"
+                            display="inline"
+                        >
+                            {followings.count}{" "}
+                        </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                            display="inline"
+                        >
+                            followings
+                        </Typography>
+                    </Box>
                     <Typography
                         variant="subtitle1"
                         color="text.secondary"

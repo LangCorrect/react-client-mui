@@ -25,7 +25,13 @@ const ProfileDetailPage = () => {
         setTabValue(newValue);
     };
 
-    const [userQuery, postsQuery, promptsQuery] = useQueries({
+    const [
+        userQuery,
+        postsQuery,
+        promptsQuery,
+        followersQuery,
+        followingsQuery,
+    ] = useQueries({
         queries: [
             {
                 queryKey: ["user", username],
@@ -39,12 +45,25 @@ const ProfileDetailPage = () => {
                 queryKey: ["userPrompts", username],
                 queryFn: () => UserService.getUserPrompts(username),
             },
+            {
+                queryKey: ["userFollowers", username],
+                queryFn: () => UserService.getUserFollowers(username),
+            },
+            {
+                queryKey: ["userFollowings", username],
+                queryFn: () => UserService.getUserFollowings(username),
+            },
         ],
     });
 
-    if (userQuery.isLoading) return <div>Loading...</div>;
-    if (postsQuery.isLoading) return <div>Loading...</div>;
-    if (promptsQuery.isLoading) return <div>Loading...</div>;
+    if (
+        userQuery.isLoading ||
+        postsQuery.isLoading ||
+        promptsQuery.isLoading ||
+        followersQuery.isLoading ||
+        followingsQuery.isLoading
+    )
+        return <div>Loading...</div>;
 
     return (
         <>
@@ -87,7 +106,11 @@ const ProfileDetailPage = () => {
                         paddingLeft={{ xs: 0, md: 3 }}
                         paddingBottom={{ xs: 1, md: 0 }}
                     >
-                        <UserInfo user={userQuery.data} />
+                        <UserInfo
+                            user={userQuery.data}
+                            followers={followersQuery.data}
+                            followings={followingsQuery.data}
+                        />
                     </Grid>
                 </Grid>
             </BootstrapContainer>
