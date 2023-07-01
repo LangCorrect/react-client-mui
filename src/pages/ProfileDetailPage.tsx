@@ -65,6 +65,15 @@ const ProfileDetailPage = () => {
     )
         return <div>Loading...</div>;
 
+    if (
+        userQuery.error ||
+        postsQuery.error ||
+        promptsQuery.error ||
+        followersQuery.error ||
+        followingsQuery.error
+    )
+        return <div>Loading...</div>;
+
     return (
         <>
             <BootstrapContainer>

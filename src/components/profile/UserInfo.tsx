@@ -8,6 +8,83 @@ interface UserInfoProps {
     followings: Following;
 }
 
+interface UserAvatarProps {
+    user: User;
+}
+
+interface UserDisplayedNameProps {
+    user: User;
+}
+
+interface UserFollowsProps {
+    followers: Followers;
+    followings: Following;
+}
+
+const UserAvatar = ({ user }: UserAvatarProps) => (
+    <Avatar
+        aria-label={user.username}
+        sx={{
+            fontSize: "3rem",
+            width: { xs: 100, md: 150 },
+            height: { xs: 100, md: 150 },
+        }}
+    >
+        {user.username.slice(0, 1)}
+    </Avatar>
+);
+
+const UserDisplayedName = ({ user }: UserDisplayedNameProps) => (
+    <Box display="flex" alignItems="center" gap={1} rowGap={0}>
+        <Typography variant="h5" color="primary">
+            {user.nick_name || user.username}
+        </Typography>
+        <Box display={{ xs: "flex", md: "none" }} alignItems="center">
+            {user.is_premium && <Stars color="primary" />}
+        </Box>
+    </Box>
+);
+
+const UserFollows = ({ followers, followings }: UserFollowsProps) => (
+    <Box display="flex" gap={1} flexWrap="wrap" rowGap={0} marginBottom={1}>
+        <Box>
+            <Typography
+                fontWeight="bold"
+                color="text.secondary"
+                display="inline"
+            >
+                {followers.count}{" "}
+            </Typography>
+            <Typography color="text.secondary" display="inline">
+                followers
+            </Typography>
+        </Box>
+        <Box>
+            <Typography
+                fontWeight="bold"
+                color="text.secondary"
+                display="inline"
+            >
+                {followings.count}{" "}
+            </Typography>
+            <Typography color="text.secondary" display="inline">
+                following
+            </Typography>
+        </Box>
+    </Box>
+);
+
+const UserButtons = () => (
+    <Box display="flex" flexWrap="wrap" rowGap={1}>
+        <Button size="small" variant="contained" sx={{ marginRight: 1 }}>
+            Follow
+        </Button>
+        <Button size="small" variant="contained">
+            <Mail />
+        </Button>
+    </Box>
+);
+
 const UserInfo = ({ user, followers, followings }: UserInfoProps) => {
     return (
         <>
@@ -18,86 +95,17 @@ const UserInfo = ({ user, followers, followings }: UserInfoProps) => {
                 gap={2}
                 rowGap={1}
             >
-                {/* Avatar */}
-                <Avatar
-                    aria-label={user.username}
-                    sx={{
-                        fontSize: "3rem",
-                        width: { xs: 100, md: 150 },
-                        height: { xs: 100, md: 150 },
-                        objectFit: "cover",
-                        borderRadius: "50%",
-                    }}
-                >
-                    {user.username.slice(0, 1)}
-                </Avatar>
+                <UserAvatar user={user} />
                 <Box>
-                    {/* Username */}
-                    <Box display="flex" alignItems="center" gap={1}>
-                        <Typography variant="h5" color="primary">
-                            {user.nick_name || user.username}
-                        </Typography>
-                        <Box
-                            display={{ xs: "flex", md: "none" }}
-                            alignItems="center"
-                        >
-                            {user.is_premium && <Stars color="primary" />}
-                        </Box>
-                    </Box>
-                    <Typography variant="subtitle1" color="text.secondary">
-                        @{user.username}
+                    <UserDisplayedName user={user} />
+                    <Typography color="text.secondary">
+                        @{user.username} {/* Handle */}
                     </Typography>
-                    <Box>
-                        <Typography
-                            variant="body1"
-                            fontWeight="bold"
-                            color="text.secondary"
-                            display="inline"
-                        >
-                            {followers.count}{" "}
-                        </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
-                            display="inline"
-                            marginRight={1}
-                        >
-                            followers
-                        </Typography>
-                        <Typography
-                            variant="body1"
-                            fontWeight="bold"
-                            color="text.secondary"
-                            display="inline"
-                        >
-                            {followings.count}{" "}
-                        </Typography>
-                        <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
-                            display="inline"
-                        >
-                            followings
-                        </Typography>
-                    </Box>
-                    <Typography
-                        variant="subtitle1"
-                        color="text.secondary"
-                        display={{ xs: "none", md: "block" }}
-                    >
-                        {/* Maybe put native languages and studying languages here */}
-                    </Typography>
-                    {/* Buttons */}
-                    <Button
-                        size="small"
-                        variant="contained"
-                        sx={{ marginRight: 1 }}
-                    >
-                        Follow
-                    </Button>
-                    <Button size="small" variant="contained">
-                        <Mail />
-                    </Button>
+                    <UserFollows
+                        followers={followers}
+                        followings={followings}
+                    />
+                    <UserButtons />
                 </Box>
             </Box>
         </>

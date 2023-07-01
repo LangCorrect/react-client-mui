@@ -91,12 +91,19 @@ const UserAbout = ({ user }: UserStatsProps) => {
                         {user.bio}
                     </Typography>
                     <Box>
-                        <Typography variant="body1">
+                        <Typography color="text.secondary" display="inline">
                             Native language(s):{" "}
+                        </Typography>
+                        <Typography display="inline">
                             {renderedLanguages(nativeLanguages)}
                         </Typography>
-                        <Typography variant="body1">
-                            Learning: {renderedLanguages(studyingLanguages)}
+                    </Box>
+                    <Box>
+                        <Typography color="text.secondary" display="inline">
+                            Learning:{" "}
+                        </Typography>
+                        <Typography display="inline">
+                            {renderedLanguages(studyingLanguages)}
                         </Typography>
                     </Box>
                 </Box>
