@@ -7,7 +7,6 @@ interface PromptListProps {
 }
 
 const PromptList = ({ prompts, user }: PromptListProps) => {
-    console.log(prompts);
     return (
         <>
             {prompts.length ? (

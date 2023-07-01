@@ -9,6 +9,7 @@ import PromptList from "./PromptsList";
 interface UserContentProps {
     user: User;
     posts: Post[];
+    postsIsLoading: boolean;
     prompts: Prompt[];
     tabValue: number;
     handleTabChange: (_event: React.SyntheticEvent, newValue: number) => void;
@@ -23,6 +24,7 @@ interface TabPanelProps {
 const UserContent = ({
     user,
     posts,
+    postsIsLoading,
     prompts,
     tabValue,
     handleTabChange,
@@ -49,12 +51,14 @@ const UserContent = ({
 
     return (
         <>
+            {/* Displayed name */}
             <Box display={{ xs: "none", md: "flex" }} alignItems="center">
                 <Typography variant="h3" color="primary" paddingRight={1}>
                     {user.nick_name || user.username}
                 </Typography>
                 {user.is_premium && <Stars color="primary" fontSize="large" />}
             </Box>
+            {/* Tabs */}
             <Box>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                     <Tabs
@@ -68,7 +72,7 @@ const UserContent = ({
                     </Tabs>
                 </Box>
                 <TabPanel value={tabValue} index={0}>
-                    <PostList posts={posts} isLoading={false} />
+                    <PostList posts={posts} isLoading={postsIsLoading} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
                     <PromptList prompts={prompts} user={user} />

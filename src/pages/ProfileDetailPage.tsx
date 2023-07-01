@@ -58,7 +58,6 @@ const ProfileDetailPage = () => {
 
     if (
         userQuery.isLoading ||
-        postsQuery.isLoading ||
         promptsQuery.isLoading ||
         followersQuery.isLoading ||
         followingsQuery.isLoading
@@ -95,6 +94,7 @@ const ProfileDetailPage = () => {
                         <UserContent
                             user={userQuery.data}
                             posts={postsQuery.data}
+                            postsIsLoading={postsQuery.isLoading}
                             prompts={promptsQuery.data}
                             tabValue={tabValue}
                             handleTabChange={handleTabChange}
