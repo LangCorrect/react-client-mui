@@ -71,7 +71,7 @@ const UserContent = ({
                     <PostList posts={posts} isLoading={false} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                    <PromptList prompts={prompts} />
+                    <PromptList prompts={prompts} user={user} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={2}>
                     <UserAbout user={user} />
