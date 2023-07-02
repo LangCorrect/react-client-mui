@@ -23,6 +23,7 @@ import NotificationService from "../../service/notification.service";
 import TruncateText from "../../components/TruncateText";
 import { useNavigate } from "react-router-dom";
 import { Notification as INotification } from "../../types";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const NotificationsPopover = () => {
     const theme = useTheme();
@@ -147,7 +148,13 @@ const NotificationsPopover = () => {
                         >
                             <ListItemAvatar>
                                 <Avatar>
-                                    <CreateIcon />
+                                    {/* TODO: Refactor this to include other notification types */}
+                                    {notification.description ===
+                                    "new_correction" ? (
+                                        <CheckCircleOutlineIcon />
+                                    ) : (
+                                        <CreateIcon />
+                                    )}
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText
