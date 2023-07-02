@@ -10,9 +10,15 @@ const markNotificationRead = async (slug: number) => {
     return resp?.data;
 };
 
+const clearAllNotifications = async () => {
+    const resp = await api.get(`notifications/clear`);
+    return resp?.data;
+};
+
 const NotificationService = {
     getNotifications,
     markNotificationRead,
+    clearAllNotifications,
 };
 
 export default NotificationService;

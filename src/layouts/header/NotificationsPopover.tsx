@@ -4,11 +4,13 @@ import {
     Divider,
     IconButton,
     List,
+    ListItem,
     ListItemAvatar,
     ListItemButton,
     ListItemText,
     Popover,
     Stack,
+    Tooltip,
     Typography,
     useTheme,
 } from "@mui/material";
@@ -50,6 +52,15 @@ const NotificationsPopover = () => {
                 queryKey: ["notifications"],
             }),
         onError: () => console.log("Error marking notification as read"),
+    });
+
+    const clearAllNotificationsMutation = useMutation({
+        mutationFn: NotificationService.clearAllNotifications,
+        onSuccess: () =>
+            queryClient.invalidateQueries({
+                queryKey: ["notifications"],
+            }),
+        onError: () => console.log("Error clearing all notifications"),
     });
 
     const handleOpen = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,8 +113,14 @@ const NotificationsPopover = () => {
                     <Typography sx={{ padding: 1, fontWeight: 700 }}>
                         Notifications
                     </Typography>
-                    <IconButton sx={{ padding: 1 }}>
-                        <DeleteOutlineIcon />
+                    <IconButton
+                        sx={{ padding: 1 }}
+                        onClick={() => clearAllNotificationsMutation.mutate()}
+                        disabled={data?.unread_count === 0 ? true : false}
+                    >
+                        <Tooltip title="Clear all notifications" arrow>
+                            <DeleteOutlineIcon />
+                        </Tooltip>
                     </IconButton>
                 </Stack>
                 <List
@@ -143,6 +160,13 @@ const NotificationsPopover = () => {
                             />
                         </ListItemButton>
                     ))}
+                    {data?.unread_count === 0 && (
+                        <ListItem>
+                            <ListItemText>
+                                You have no notifications.
+                            </ListItemText>
+                        </ListItem>
+                    )}
                 </List>
             </Popover>
         </>
