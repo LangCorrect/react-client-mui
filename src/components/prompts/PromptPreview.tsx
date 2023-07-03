@@ -12,32 +12,20 @@ import {
 } from "@mui/material";
 import { Language, Reply } from "@mui/icons-material";
 import useAuth from "../../hooks/useAuth.tsx";
+import { Prompt } from "../../types.ts";
 
-export interface Prompt {
-    id: number;
-    username: string;
-    content: string;
-    difficulty_level: string;
-    language: number;
-    created: string;
-    updated: string;
-    slug: string;
-    tags: string[];
-    challenge: number | null;
-}
-
-interface PromptPreviewProps {
+interface Props {
     prompt: Prompt;
 }
 
-const PromptPreview = ({ prompt }: PromptPreviewProps) => {
+const PromptPreview = ({ prompt }: Props) => {
     const authContext = useAuth();
     if (authContext === null) return <p>Loading...</p>;
 
     const { content } = prompt;
 
     return (
-        <Card sx={{ marginBottom: 3 }}>
+        <Card>
             <CardActionArea>
                 <CardContent>
                     <Box>

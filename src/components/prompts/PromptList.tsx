@@ -1,14 +1,16 @@
 import { User } from "../../types";
-import PromptPreview, { Prompt } from "./PromptPreview";
+import PromptPreview from "./PromptPreview";
+import { Prompt } from "../../types";
+import { Box } from "@mui/material";
 
-interface PromptListProps {
+interface Props {
     prompts: Prompt[];
     user: User;
 }
 
-const PromptList = ({ prompts, user }: PromptListProps) => {
+const PromptList = ({ prompts, user }: Props) => {
     return (
-        <>
+        <Box display="flex" flexDirection="column" rowGap={3}>
             {prompts.length ? (
                 prompts.map((prompt) => (
                     <PromptPreview prompt={prompt} key={prompt.id} />
@@ -19,7 +21,7 @@ const PromptList = ({ prompts, user }: PromptListProps) => {
                     prompts.
                 </div>
             )}
-        </>
+        </Box>
     );
 };
 

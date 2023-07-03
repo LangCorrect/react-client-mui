@@ -1,10 +1,10 @@
 import { Typography, Box, Tabs, Tab } from "@mui/material";
-import { Stars } from "@mui/icons-material";
 import { Post, User } from "../../types";
 import PostList from "../posts/PostList";
 import UserAbout from "./UserAbout";
-import { Prompt } from "./PromptPreview";
-import PromptList from "./PromptsList";
+import PromptList from "../prompts/PromptList";
+import { Prompt } from "../../types";
+import PremiumIcon from "./PremiumIcon";
 
 interface UserContentProps {
     user: User;
@@ -56,7 +56,7 @@ const UserContent = ({
                 <Typography variant="h3" color="primary" paddingRight={1}>
                     {user.nick_name || user.username}
                 </Typography>
-                {user.is_premium && <Stars color="primary" fontSize="large" />}
+                {user.is_premium && <PremiumIcon fontSize="large" />}
             </Box>
             {/* Tabs */}
             <Box>

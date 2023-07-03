@@ -71,7 +71,7 @@ const ProfileDetailPage = () => {
         followersQuery.error ||
         followingsQuery.error
     )
-        return <div>Loading...</div>;
+        return <div>Error...</div>;
 
     return (
         <>
@@ -89,6 +89,7 @@ const ProfileDetailPage = () => {
                                 xs: 0,
                                 md: `1px solid ${theme.palette.divider}`,
                             }),
+                            zIndex: 0,
                         }}
                     >
                         <UserContent
@@ -111,6 +112,11 @@ const ProfileDetailPage = () => {
                             top: 0,
                             height: "fit-content",
                             bgcolor: "background.default",
+                            zIndex: 1,
+                            boxShadow: (theme: Theme) => ({
+                                xs: `0px 0px 0px 5px ${theme.palette.background.default}`,
+                                md: "none",
+                            }),
                         }}
                         paddingLeft={{ xs: 0, md: 3 }}
                         paddingBottom={{ xs: 1, md: 0 }}

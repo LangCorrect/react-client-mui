@@ -1,11 +1,11 @@
 import { Card, CardContent, Typography } from "@mui/material";
 
-interface StatCardProps {
+interface Props {
     title: string;
     content: string | number;
 }
 
-const StatCard = ({ title, content }: StatCardProps) => (
+const StatCard = ({ title, content }: Props) => (
     <Card variant="outlined">
         <CardContent
             sx={{

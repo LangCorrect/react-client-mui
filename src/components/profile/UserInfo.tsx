@@ -1,6 +1,7 @@
 import { Typography, Button, Box, Avatar } from "@mui/material";
-import { Stars, Mail } from "@mui/icons-material";
+import { Mail } from "@mui/icons-material";
 import { Followers, Following, User } from "../../types";
+import PremiumIcon from "./PremiumIcon";
 
 interface UserInfoProps {
     user: User;
@@ -40,7 +41,7 @@ const UserDisplayedName = ({ user }: UserDisplayedNameProps) => (
             {user.nick_name || user.username}
         </Typography>
         <Box display={{ xs: "flex", md: "none" }} alignItems="center">
-            {user.is_premium && <Stars color="primary" />}
+            {user.is_premium && <PremiumIcon />}
         </Box>
     </Box>
 );
@@ -75,8 +76,8 @@ const UserFollows = ({ followers, followings }: UserFollowsProps) => (
 );
 
 const UserButtons = () => (
-    <Box display="flex" flexWrap="wrap" rowGap={1}>
-        <Button size="small" variant="contained" sx={{ marginRight: 1 }}>
+    <Box display="flex" flexWrap="wrap" gap={1}>
+        <Button size="small" variant="contained">
             Follow
         </Button>
         <Button size="small" variant="contained">
@@ -99,7 +100,7 @@ const UserInfo = ({ user, followers, followings }: UserInfoProps) => {
                 <Box>
                     <UserDisplayedName user={user} />
                     <Typography color="text.secondary">
-                        @{user.username} {/* Handle */}
+                        @{user.username}
                     </Typography>
                     <UserFollows
                         followers={followers}

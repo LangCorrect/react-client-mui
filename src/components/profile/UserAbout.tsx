@@ -3,11 +3,11 @@ import StatCard from "./StatCard";
 import { User } from "../../types";
 import { Info } from "@mui/icons-material";
 
-interface UserAboutProps {
+interface RequireUserProps {
     user: User;
 }
 
-interface InfoHeaderProps {
+interface TextProps {
     header: string;
 }
 
@@ -16,15 +16,7 @@ interface Language {
     en_name: string;
 }
 
-interface UserAboutMeProps {
-    user: User;
-}
-
-interface UserStatsProps {
-    user: User;
-}
-
-const InfoHeader = ({ header }: InfoHeaderProps) => (
+const Text = ({ header }: TextProps) => (
     <Box display="flex" alignItems="center" gap={1} marginBottom={1}>
         <Info color="primary" />
         <Typography variant="body1" color="text.secondary">
@@ -33,12 +25,15 @@ const InfoHeader = ({ header }: InfoHeaderProps) => (
     </Box>
 );
 
-const UserAboutMe = ({ user }: UserAboutMeProps) => {
+const UserAboutMe = ({ user }: RequireUserProps) => {
     const renderedLanguages = (langs: Language[]) => {
-        const lastId = langs.length - 1;
-        return langs.map((lang, id) => (
+        const lastIdx = langs.length - 1;
+
+        return langs.map((lang, idx) => (
             <span key={lang["en_name"]}>
-                {id === lastId ? `${lang["en_name"]}.` : `${lang["en_name"]}, `}
+                {idx === lastIdx
+                    ? `${lang["en_name"]}.`
+                    : `${lang["en_name"]}, `}
             </span>
         ));
     };
@@ -48,7 +43,7 @@ const UserAboutMe = ({ user }: UserAboutMeProps) => {
 
     return (
         <Box>
-            <InfoHeader header="About me" />
+            <Text header="About me" />
             <Typography
                 marginBottom={1}
                 sx={{ wordWrap: "break-word", textIndent: 31 }}
@@ -75,7 +70,7 @@ const UserAboutMe = ({ user }: UserAboutMeProps) => {
     );
 };
 
-const UserStats = ({ user }: UserStatsProps) => {
+const UserStats = ({ user }: RequireUserProps) => {
     const correctionsMade = user.corrections_made_count;
     const correctionsRecieved = user.corrections_received_count;
     const correctionRatio = user.correction_ratio;
@@ -118,7 +113,7 @@ const UserStats = ({ user }: UserStatsProps) => {
 
     return (
         <Box>
-            <InfoHeader header="My stats" />
+            <Text header="My stats" />
             <Grid container spacing={1}>
                 {stats.map(({ id, title, content }) => (
                     <Grid key={id} item xs={12} md={6}>
@@ -130,7 +125,7 @@ const UserStats = ({ user }: UserStatsProps) => {
     );
 };
 
-const UserAbout = ({ user }: UserAboutProps) => {
+const UserAbout = ({ user }: RequireUserProps) => {
     return (
         <>
             <Box display="flex" flexDirection="column" rowGap={2}>
