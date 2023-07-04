@@ -164,3 +164,13 @@ export interface Notification {
     actor: string;
     obj_slug: string;
 }
+
+export enum NotificationTypes {
+    Post = "new_post",
+    Correction = "new_correction",
+    Follow = "new_follower",
+    // Comment = "new_comment",
+    // Reply = "new_reply"
+    // Like = "new_like",
+    // Deletion = "new_deletion"
+}

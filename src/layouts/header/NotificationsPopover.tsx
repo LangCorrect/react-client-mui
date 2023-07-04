@@ -22,8 +22,9 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import NotificationService from "../../service/notification.service";
 import TruncateText from "../../components/TruncateText";
 import { useNavigate } from "react-router-dom";
-import { Notification as INotification } from "../../types";
+import { Notification as INotification, NotificationTypes } from "../../types";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 
 const NotificationsPopover = () => {
     const theme = useTheme();
@@ -148,17 +149,22 @@ const NotificationsPopover = () => {
                         >
                             <ListItemAvatar>
                                 <Avatar>
-                                    {/* TODO: Refactor this to include other notification types */}
                                     {notification.description ===
-                                    "new_correction" ? (
-                                        <CheckCircleOutlineIcon />
-                                    ) : (
+                                    NotificationTypes.Post ? (
                                         <CreateIcon />
+                                    ) : notification.description ===
+                                      NotificationTypes.Correction ? (
+                                        <CheckCircleOutlineIcon />
+                                    ) : notification.description ===
+                                      NotificationTypes.Follow ? (
+                                        <PersonAddAltIcon />
+                                    ) : (
+                                        ""
                                     )}
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText
-                                primary={`${notification.actor}${notification.verb}`}
+                                primary={`${notification.actor} ${notification.verb}`}
                                 secondary={
                                     <TruncateText
                                         text={notification.action_object}
