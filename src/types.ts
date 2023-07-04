@@ -95,7 +95,7 @@ export interface Correction {
 export type CorrectionFormValues = {
     correction?: string;
     note?: string;
-}
+};
 
 export interface CorrectionRow {
     postrow_id: number;
@@ -117,7 +117,7 @@ export interface OverallFeedback {
     username?: string;
 }
 
-export interface Comment{
+export interface Comment {
     id: string;
     username: string;
     text: string;
@@ -129,7 +129,6 @@ export interface UserCorrection {
     comments: Comment[];
     overall_feedback: OverallFeedback[];
 }
-
 
 export interface User {
     id: number;
@@ -153,4 +152,25 @@ export type UserRegisterFormValues = {
     studying_language: string;
     studying_level: string;
     gender: string;
+};
+
+export interface Notification {
+    id: number;
+    verb: string;
+    description: string;
+    timestamp: Date;
+    slug: number;
+    action_object: string;
+    actor: string;
+    obj_slug: string;
+}
+
+export enum NotificationTypes {
+    Post = "new_post",
+    Correction = "new_correction",
+    Follow = "new_follower",
+    // Comment = "new_comment",
+    // Reply = "new_reply"
+    // Like = "new_like",
+    // Deletion = "new_deletion"
 }
