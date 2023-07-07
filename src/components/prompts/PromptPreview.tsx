@@ -22,7 +22,8 @@ const PromptPreview = ({ prompt }: Props) => {
     const authContext = useAuth();
     if (authContext === null) return <p>Loading...</p>;
 
-    const { content } = prompt;
+    // console.log(prompt);
+    const { content, language, response_count } = prompt;
 
     return (
         <Card>
@@ -45,10 +46,10 @@ const PromptPreview = ({ prompt }: Props) => {
                 sx={{ display: "flex", justifyContent: "space-between" }}
             >
                 <Stack direction="row" spacing={1}>
-                    <Tooltip arrow title={prompt.language}>
+                    <Tooltip arrow title={language}>
                         <Chip
                             icon={<Language />}
-                            label={prompt.language}
+                            label={language}
                             size="small"
                             variant="outlined"
                         />
@@ -56,7 +57,9 @@ const PromptPreview = ({ prompt }: Props) => {
                     <Tooltip arrow title="Responses">
                         <Chip
                             size="small"
-                            label="x responses"
+                            label={`${response_count} ${
+                                response_count === 1 ? "response" : "resposnes"
+                            }`}
                             variant="outlined"
                         />
                     </Tooltip>

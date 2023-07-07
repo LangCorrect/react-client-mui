@@ -76,6 +76,7 @@ export interface Prompt {
     slug: string;
     tags: string[];
     challenge: number | null;
+    response_count: number;
 }
 
 export interface Ranking {
