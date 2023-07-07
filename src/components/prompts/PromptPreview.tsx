@@ -22,7 +22,6 @@ const PromptPreview = ({ prompt }: Props) => {
     const authContext = useAuth();
     if (authContext === null) return <p>Loading...</p>;
 
-    // console.log(prompt);
     const { content, language, response_count } = prompt;
 
     return (
