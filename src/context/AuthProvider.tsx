@@ -16,12 +16,24 @@ export interface IAuthContext {
     refreshToken: string | null;
     accessToken: string | null;
     isAuthenticated: boolean;
-    userInfoLoaded: boolean;
+    isUserInfoLoaded: boolean;
     logout: () => void;
     setCurrentUser: (user: User | null) => void;
     setRefreshToken: (token: string) => void;
     setAccessToken: (token: string) => void;
 }
+
+const authContextDefaults: IAuthContext = {
+    currentUser: null,
+    refreshToken: null,
+    accessToken: null,
+    isAuthenticated: false,
+    isUserInfoLoaded: false,
+    logout: () => null,
+    setCurrentUser: () => null,
+    setRefreshToken: () => null,
+    setAccessToken: () => null
+};
 
 interface DecodeToken {
     token_type: string;
@@ -32,20 +44,8 @@ interface DecodeToken {
     username: string;
 }
 
-const AuthContext = createContext<IAuthContext | null>(null);
+const AuthContext = createContext<IAuthContext>(authContextDefaults);
 
-/**
- * DEV NOTE:
- * - As the React client is not being served by the server directly, it caused some problems in
- *  passing user information form the server to the client.
- * - In order to ensure that the layouts and views are rendered correctly, it's crucial to have
- *  the user information fully loaded.
- * - To address this, I have introduced a state variable called `userInfoLoaded` to track the
- *  complete loading of user information.
- * - Additionally, I have implemented some specific logic in the routes that executes only when
- *  `userInfoLoaded` evaluates to true.
- * - This solution feels a bit janky....
- */
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [accessToken, setAccessToken] = useLocalStorage(
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
     const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-    const [userInfoLoaded, setUserInfoLoaded] = useState(false);
+    const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 
     const isAuthenticated = currentUser
         ? Object.keys(currentUser).length > 0
@@ -75,10 +75,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 const { username } = decodedToken;
                 const user = await UserService.getUser(username);
                 setCurrentUser(user);
-                setUserInfoLoaded(true);
+                setIsUserInfoLoaded(true);
             } else {
                 setCurrentUser(null);
-                setUserInfoLoaded(true);
+                setIsUserInfoLoaded(true);
             }
         }
 
@@ -133,7 +133,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 currentUser,
                 setCurrentUser,
                 isAuthenticated,
-                userInfoLoaded,
+                isUserInfoLoaded,
                 logout,
             }}
         >

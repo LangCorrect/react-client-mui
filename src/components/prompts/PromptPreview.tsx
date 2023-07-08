@@ -11,7 +11,6 @@ import {
     Chip,
 } from "@mui/material";
 import { Language, Reply } from "@mui/icons-material";
-import useAuth from "../../hooks/useAuth.tsx";
 import { Prompt } from "../../types.ts";
 
 interface Props {
@@ -19,9 +18,6 @@ interface Props {
 }
 
 const PromptPreview = ({ prompt }: Props) => {
-    const authContext = useAuth();
-    if (authContext === null) return <p>Loading...</p>;
-
     const { content, language, response_count } = prompt;
 
     return (

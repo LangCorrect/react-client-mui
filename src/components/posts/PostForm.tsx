@@ -37,6 +37,8 @@ interface Props {
 
 const PostForm = ({ post, onSubmit, onDiscard }: Props) => {
     const navigate = useNavigate();
+    const { currentUser } = useAuth();
+
     const isEditing = post !== undefined && Object.keys(post).length > 0;
     const [errMsg, setErrMsg] = useState("");
     const {
@@ -47,13 +49,6 @@ const PostForm = ({ post, onSubmit, onDiscard }: Props) => {
     } = useForm<PostFormValues>({
         resolver: yupResolver(validationSchema),
     });
-
-    const authContext = useAuth();
-    if (!authContext) {
-        throw new Error("authContext missing");
-    }
-
-    const { currentUser } = authContext;
 
     const onSubmitHandler: SubmitHandler<PostFormValues> = async (data) => {
         try {

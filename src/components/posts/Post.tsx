@@ -59,12 +59,7 @@ const Post = ({ post }: Props) => {
         },
     });
 
-    const authContext = useAuth();
-    if (!authContext) {
-        throw new Error("AuthContext must be passed");
-    }
-
-    const { currentUser } = authContext;
+    const { currentUser } = useAuth();
 
     const isPostOwner = currentUser
         ? currentUser.username === post.user.username

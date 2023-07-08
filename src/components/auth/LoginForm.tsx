@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Box from "@mui/material/Box";
 import useAuth from "../../hooks/useAuth";
-import { IAuthContext } from "../../context/AuthProvider";
 import { AxiosError, isAxiosError } from "axios";
 import AuthService from "../../service/auth.service";
 
@@ -18,7 +17,7 @@ const validationSchema = yup.object().shape({
 const LoginForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const authContext = useAuth();
+    const { setAccessToken, setRefreshToken } = useAuth();
     const [errMsg, setErrMsg] = useState("");
     const {
         register,
@@ -27,11 +26,6 @@ const LoginForm = () => {
     } = useForm({
         resolver: yupResolver(validationSchema),
     });
-
-    if (!authContext) return <p>Loading...</p>;
-
-    const { setAccessToken, setRefreshToken } = authContext as IAuthContext;
-
     const from = location.state?.from?.pathname || "/";
 
     const onSubmitHandler: SubmitHandler<FieldValues> = async (data) => {

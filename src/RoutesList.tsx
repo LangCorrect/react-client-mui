@@ -15,16 +15,7 @@ import MakeCorrectionPage from "./pages/MakeCorrectionPage.tsx";
 import RankingPage from "./pages/RankingPage.tsx";
 
 const RoutesList = () => {
-    const authContext = useAuth();
-    if (!authContext) {
-        throw new Error("AuthContext missing");
-    }
-
-    const { isAuthenticated, userInfoLoaded } = authContext;
-
-    // needed in order to render the layouts correctly.
-    // read dev notes in context/AuthProvider
-    if (!userInfoLoaded) return <p>Loading...</p>;
+    const { isAuthenticated } = useAuth();
 
     return (
         <Routes>

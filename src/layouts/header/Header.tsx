@@ -33,12 +33,9 @@ const Header = ({ onNavOpen }: Props) => {
     const navigate = useNavigate();
     const RtlMode = useContext(RTLContext);
 
-    const authContext = useAuth();
-    if (!authContext) return <p>Loading...</p>;
-    const { isAuthenticated, userInfoLoaded } = authContext;
-    if (!userInfoLoaded) return <p>Loading...</p>;
+    const {isAuthenticated, isUserInfoLoaded} = useAuth();
 
-    const renderMenuIcon = userInfoLoaded ? (
+    const renderMenuIcon = isUserInfoLoaded ? (
         <IconButton
             size="large"
             edge="start"
@@ -53,13 +50,13 @@ const Header = ({ onNavOpen }: Props) => {
         <Skeleton variant="circular" width={42} height={42} />
     );
 
-    const renderLogo = userInfoLoaded ? (
+    const renderLogo = isUserInfoLoaded ? (
         <img src={LogoMarkWhite} alt="logo" height={38} width={38} />
     ) : (
         <Skeleton variant="circular" width={42} height={42} />
     );
 
-    const renderPopovers = userInfoLoaded ? (
+    const renderPopovers = isUserInfoLoaded ? (
         isAuthenticated ? (
             <Stack direction="row" alignItems="center" spacing={1.5}>
                 <NotificationsPopover />
