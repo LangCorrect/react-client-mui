@@ -4,134 +4,84 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Skeleton, Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Stack, useMediaQuery, useTheme } from "@mui/material";
 import NotificationsPopover from "./NotificationsPopover.js";
 import AvatarPopover from "./AvatarPopover.js";
 import LogoMarkWhite from "../../assets/logos/logo-mark-white.svg";
-import { Link, useNavigate } from "react-router-dom";
+import HorizontalLogo from "../../assets/logos/navbar-full-logo.png";
+import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth.js";
-import React, { useContext, useState, MouseEvent } from "react";
-
-import SettingsIcon from "@mui/icons-material/Settings";
-import Popover from "@mui/material/Popover";
-
-import Switch from "@mui/material/Switch";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-
-import { ColorModeContext } from "../../theme";
-import { RTLContext } from "../../context/RTLProvider.js";
+import RoundButton from "../common/buttons/RoundButton.js";
+import FeedMenu from "./FeedMenu.js";
+import SettingsPopover from "./SettingsPopover.js";
+import CreateIcon from "@mui/icons-material/Create";
 
 interface Props {
     onNavOpen: () => void;
 }
 
 const Header = ({ onNavOpen }: Props) => {
+    const { isAuthenticated } = useAuth();
     const theme = useTheme();
-    const colorMode = useContext(ColorModeContext);
     const isMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
-    const navigate = useNavigate();
-    const RtlMode = useContext(RTLContext);
 
-    const {isAuthenticated, isUserInfoLoaded} = useAuth();
-
-    const renderMenuIcon = isUserInfoLoaded ? (
-        <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={onNavOpen}
-        >
-            <MenuIcon />
-        </IconButton>
+    const renderPopovers = isAuthenticated ? (
+        <Stack direction="row" alignItems="center" spacing={0.9}>
+            <Link to="/create/post">
+                <RoundButton
+                    text="write"
+                    icon={<CreateIcon />}
+                    variant="contained"
+                    color="primary"
+                />
+            </Link>
+            <SettingsPopover />
+            <NotificationsPopover />
+            <AvatarPopover />
+        </Stack>
     ) : (
-        <Skeleton variant="circular" width={42} height={42} />
-    );
-
-    const renderLogo = isUserInfoLoaded ? (
-        <img src={LogoMarkWhite} alt="logo" height={38} width={38} />
-    ) : (
-        <Skeleton variant="circular" width={42} height={42} />
-    );
-
-    const renderPopovers = isUserInfoLoaded ? (
-        isAuthenticated ? (
-            <Stack direction="row" alignItems="center" spacing={1.5}>
-                <NotificationsPopover />
-                <AvatarPopover />
-            </Stack>
-        ) : (
-            <Button component={Link} to="/login" color="inherit">
-                Login
-            </Button>
-        )
-    ) : (
-        <Skeleton variant="rectangular" width={64} height={38} />
+        <Button component={Link} to="/login" color="inherit">
+            Login
+        </Button>
     );
 
     return (
         <>
             <div id="back-to-top-anchor"></div>
             <AppBar position="static" color="primary" sx={{ mb: 3 }}>
-                <Toolbar>
-                    {renderMenuIcon}
-                    <Box
-                        display="flex"
-                        flexGrow={1}
-                        alignItems="center"
-                        justifyContent={isMediumScreen ? "center" : "start"}
-                    >
-                        <span
-                            style={{ cursor: "pointer" }}
-                            onClick={() => navigate("/")}
+                <Toolbar
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <Box display="flex" alignItems="center">
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ display: { sm: "none" } }}
+                            onClick={onNavOpen}
                         >
-                            {renderLogo}
-                        </span>
+                            <MenuIcon />
+                        </IconButton>
+                        <Link to="/" style={{ display: "flex" }}>
+                            <img
+                                src={
+                                    isMediumScreen
+                                        ? HorizontalLogo
+                                        : LogoMarkWhite
+                                }
+                                alt="logo"
+                                height={isMediumScreen ? 32 : 38}
+                                width={isMediumScreen ? "auto" : 38}
+                                style={{ cursor: "pointer" }}
+                            />
+                        </Link>
                     </Box>
-                    <LangSettingPopOver>
-                        <FormGroup>
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        size="medium"
-                                        onClick={RtlMode.toggleRTL}
-                                        checked={
-                                            theme.direction === "rtl"
-                                                ? true
-                                                : false
-                                        }
-                                    />
-                                }
-                                label="RTL"
-                                labelPlacement="start"
-                                sx={{
-                                    justifyContent: "space-between",
-                                    margin: "0px",
-                                }}
-                            />
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        size="medium"
-                                        onClick={colorMode.toggleColorMode}
-                                        checked={
-                                            theme.palette.mode === "dark"
-                                                ? true
-                                                : false
-                                        }
-                                    />
-                                }
-                                label="Dark Mode"
-                                labelPlacement="start"
-                                sx={{
-                                    justifyContent: "space-between",
-                                    margin: "0px",
-                                }}
-                            />
-                        </FormGroup>
-                    </LangSettingPopOver>
+                    <Box sx={{ display: { xs: "none", sm: "block" } }}>
+                        <FeedMenu />
+                        <RoundButton text="Prompts" />
+                        <RoundButton text="Bookmarks" />
+                    </Box>
                     {renderPopovers}
                 </Toolbar>
             </AppBar>
@@ -140,43 +90,3 @@ const Header = ({ onNavOpen }: Props) => {
 };
 
 export default Header;
-
-const LangSettingPopOver = ({ children }: { children: React.ReactNode }) => {
-    const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-
-    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? "simple-popover" : undefined;
-    return (
-        <div>
-            <IconButton color="inherit" onClick={handleClick}>
-                <SettingsIcon />
-            </IconButton>
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                }}
-            >
-                <Box
-                    sx={{
-                        padding: "1rem",
-                    }}
-                >
-                    {children}
-                </Box>
-            </Popover>
-        </div>
-    );
-};
