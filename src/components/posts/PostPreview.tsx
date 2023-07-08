@@ -2,7 +2,6 @@ import React from "react";
 
 import {
     Avatar,
-    Button,
     Card,
     CardActionArea,
     CardActions,
@@ -26,6 +25,7 @@ import { Link } from "react-router-dom";
 import Article from "./Article.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
 import { Post } from "../../types.ts";
+import CorrectButton from "../../layouts/common/buttons/CorrectButton.tsx";
 
 interface Props {
     post: Post;
@@ -127,15 +127,12 @@ const PostPreview = ({ post }: Props) => {
                         />
                     </Tooltip>
                 </Stack>
-                <Button
-                    size="small"
-                    variant={isCorrectedByUser ? "contained" : "outlined"}
-                    startIcon={<CheckCircleOutlineIcon />}
-                    component={Link}
-                    to={`/journals/${meta.slug}/make-corrections`}
-                >
-                    {isCorrectedByUser ? "Already corrected" : "Correct"}
-                </Button>
+
+                <CorrectButton
+                    slug={meta.slug}
+                    isCorrectedByUser={isCorrectedByUser}
+                    isDisabled={user.username === currentUser?.username}
+                />
             </CardActions>
         </Card>
     );
