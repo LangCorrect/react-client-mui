@@ -65,6 +65,20 @@ export type PostFormValues = {
     tags?: string;
 };
 
+export interface Prompt {
+    id: number;
+    username: string;
+    content: string;
+    difficulty_level: string;
+    language: number;
+    created: string;
+    updated: string;
+    slug: string;
+    tags: string[];
+    challenge: number | null;
+    response_count: number;
+}
+
 export interface Ranking {
     username: string;
     total: number;
@@ -141,6 +155,12 @@ export interface User {
     date_joined: string;
     get_studying_languages: Language[];
     get_native_languages: Language[];
+    corrections_made_count: number;
+    corrections_received_count: number;
+    correction_ratio: number;
+    contributions_count: number;
+    posts_count: number;
+    prompts_count: number;
 }
 
 export type UserRegisterFormValues = {
@@ -153,6 +173,24 @@ export type UserRegisterFormValues = {
     studying_level: string;
     gender: string;
 };
+
+export interface Followers {
+    count: number;
+    next: null;
+    previous: null;
+    results: {
+        username: string;
+    }[];
+}
+
+export interface Following {
+    count: number;
+    next: null;
+    previous: null;
+    results: {
+        username: string;
+    }[];
+}
 
 export interface Notification {
     id: number;

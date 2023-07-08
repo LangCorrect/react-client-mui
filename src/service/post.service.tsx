@@ -12,6 +12,11 @@ const getPost = async (slug: string) => {
     return resp?.data;
 };
 
+const getUserPosts = async (username: string) => {
+    const resp = await api.get(`/users/${username}/posts`);
+    return resp?.data?.results;
+};
+
 const editPost = async (slug: string, data: PostFormValues) => {
     const resp = await api.patch(`/journals/${slug}`, data);
     return resp;
@@ -33,6 +38,7 @@ const PostService = {
     editPost,
     deletePost,
     createPost,
+    getUserPosts,
 };
 
 export default PostService;
