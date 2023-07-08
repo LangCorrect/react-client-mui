@@ -32,7 +32,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AxiosError, isAxiosError } from "axios";
 import PostService from "../../service/post.service.tsx";
 import { Post as IPost, PostFormValues } from "../../types.ts";
@@ -158,9 +158,11 @@ const Post = ({ post }: Props) => {
             <Card>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label={user.username}>
-                            {user.username.slice(0, 1)}
-                        </Avatar>
+                        <Link to={`/users/${user.username}`}>
+                            <Avatar aria-label={user.username}>
+                                {user.username.slice(0, 1)}
+                            </Avatar>
+                        </Link>
                     }
                     action={
                         <IconButton
@@ -173,7 +175,14 @@ const Post = ({ post }: Props) => {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={user.username}
+                    title={
+                        <Link
+                            to={`/users/${user.username}`}
+                            style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                            {user.username}
+                        </Link>
+                    }
                     subheader={meta.created}
                 />
                 <Divider />

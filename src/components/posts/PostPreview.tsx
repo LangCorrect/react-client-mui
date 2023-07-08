@@ -18,7 +18,6 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import FlagIcon from "@mui/icons-material/Flag";
 import LanguageIcon from "@mui/icons-material/Language";
 import { Link } from "react-router-dom";
@@ -57,9 +56,11 @@ const PostPreview = ({ post }: Props) => {
         <Card sx={{ marginBottom: 3 }}>
             <CardHeader
                 avatar={
-                    <Avatar aria-label={user.username}>
-                        {user.username.slice(0, 1)}
-                    </Avatar>
+                    <Link to={`/users/${user.username}`}>
+                        <Avatar aria-label={user.username}>
+                            {user.username.slice(0, 1)}
+                        </Avatar>
+                    </Link>
                 }
                 action={
                     <IconButton
@@ -72,7 +73,14 @@ const PostPreview = ({ post }: Props) => {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title={user.username}
+                title={
+                    <Link
+                        to={`/users/${user.username}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                        {user.username}
+                    </Link>
+                }
                 subheader={meta.created}
             />
             <Menu
@@ -89,12 +97,6 @@ const PostPreview = ({ post }: Props) => {
                         <BookmarkBorderIcon />
                     </ListItemIcon>
                     <ListItemText>Save</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <PermIdentityIcon />
-                    </ListItemIcon>
-                    <ListItemText>View profile</ListItemText>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <ListItemIcon>

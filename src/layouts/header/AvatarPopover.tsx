@@ -7,7 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Logout } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const AvatarPopover = () => {
@@ -18,6 +18,8 @@ const AvatarPopover = () => {
     const authContext = useAuth();
     if(!authContext) return <p>Loading...</p>
     const { currentUser, logout } = authContext;
+
+    const username = currentUser?.username
 
     const handleOpen = (evt: React.MouseEvent<HTMLButtonElement>) => {
         setOpen(true);
@@ -37,7 +39,7 @@ const AvatarPopover = () => {
             >
                 <Avatar
                     sx={{ width: 36, height: 36 }}
-                    alt={currentUser?.username}
+                    alt={username}
                     src="/"
                 />
             </IconButton>
@@ -71,7 +73,7 @@ const AvatarPopover = () => {
                     //     </ListSubheader>
                     // }
                 >
-                    <ListItemButton>
+                    <ListItemButton component={Link} to={`/users/${username}`}>
                         <ListItemIcon>
                             <AccountCircleIcon />
                         </ListItemIcon>
