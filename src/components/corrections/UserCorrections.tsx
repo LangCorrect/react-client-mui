@@ -20,7 +20,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CorrectionComments from "./CorrectionComments";
 import { UserCorrection } from "../../types";
-
+import { Link } from "react-router-dom";
 
 const UserCorrections = ({
     username,
@@ -44,8 +44,19 @@ const UserCorrections = ({
         <>
             <Card>
                 <CardHeader
-                    avatar={<Avatar>{username.slice(0, 1)}</Avatar>}
-                    title={username}
+                    avatar={
+                        <Link to={`/users/${username}`}>
+                            <Avatar>{username.slice(0, 1)}</Avatar>
+                        </Link>
+                    }
+                    title={
+                        <Link
+                            to={`/users/${username}`}
+                            style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                            {username}
+                        </Link>
+                    }
                 />
                 <Divider />
                 <List disablePadding>
