@@ -32,10 +32,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AxiosError, isAxiosError } from "axios";
 import PostService from "../../service/post.service.tsx";
 import { Post as IPost, PostFormValues } from "../../types.ts";
+import CorrectButton from "../../layouts/common/buttons/CorrectButton.tsx";
 
 interface Props {
     post: IPost;
@@ -255,19 +256,14 @@ const Post = ({ post }: Props) => {
                                 />
                             </Tooltip>
                         </Stack>
-                        <Button
-                            size="small"
-                            variant={
-                                isCorrectedByUser ? "contained" : "outlined"
+
+                        <CorrectButton
+                            slug={post.meta.slug}
+                            isCorrectedByUser={isCorrectedByUser}
+                            isDisabled={
+                                currentUser?.username === post.user.username
                             }
-                            startIcon={<CheckCircleOutlineIcon />}
-                            component={Link}
-                            to={`/journals/${post.meta.slug}/make-corrections`}
-                        >
-                            {isCorrectedByUser
-                                ? "Already corrected"
-                                : "Correct"}
-                        </Button>
+                        />
                     </CardActions>
                 )}
             </Card>
