@@ -14,12 +14,9 @@ const AvatarPopover = () => {
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const navigate = useNavigate();
+    const { currentUser, logout } = useAuth();
 
-    const authContext = useAuth();
-    if(!authContext) return <p>Loading...</p>
-    const { currentUser, logout } = authContext;
-
-    const username = currentUser?.username
+    const username = currentUser?.username;
 
     const handleOpen = (evt: React.MouseEvent<HTMLButtonElement>) => {
         setOpen(true);
@@ -37,11 +34,7 @@ const AvatarPopover = () => {
                 color={open ? "primary" : "default"}
                 onClick={handleOpen}
             >
-                <Avatar
-                    sx={{ width: 36, height: 36 }}
-                    alt={username}
-                    src="/"
-                />
+                <Avatar sx={{ width: 36, height: 36 }} alt={username} src="/" />
             </IconButton>
 
             <Popover

@@ -34,10 +34,7 @@ const PostPreview = ({ post }: Props) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const authContext = useAuth();
-    if (authContext === null) return <p>Loading...</p>;
-
-    const { currentUser } = authContext;
+    const { currentUser } = useAuth();
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);

@@ -9,10 +9,12 @@ import rtlPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 import React, { useMemo } from "react";
 import { prefixer } from "stylis";
+import useAuth from "./hooks/useAuth";
 
 function App() {
     const [theme, colorMode] = useColorMode();
     const [RTLTheme, RtlMode] = useRTL();
+    const { isUserInfoLoaded } = useAuth();
 
     const newTheme = {
         ...theme,
@@ -31,6 +33,8 @@ function App() {
             <CacheProvider value={cacheIsRtl}>{children}</CacheProvider>
         );
     }, [RTLTheme.direction]);
+
+    if (!isUserInfoLoaded) return;
 
     return (
         <ColorModeContext.Provider value={colorMode}>
