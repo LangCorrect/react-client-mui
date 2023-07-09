@@ -1,7 +1,6 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Stack, useMediaQuery, useTheme } from "@mui/material";
@@ -15,6 +14,8 @@ import RoundButton from "../common/buttons/RoundButton.js";
 import FeedMenu from "./FeedMenu.js";
 import SettingsPopover from "./SettingsPopover.js";
 import CreateIcon from "@mui/icons-material/Create";
+import NotificationsPopoverAnon from "./NotificationsPopoverAnon.js";
+import AvatarPopoverAnon from "./AvatarPopoverAnon.js";
 
 interface Props {
     onNavOpen: () => void;
@@ -25,6 +26,7 @@ const Header = ({ onNavOpen }: Props) => {
     const theme = useTheme();
     const isMediumScreen = useMediaQuery(theme.breakpoints.up("md"));
 
+    // TODO: Refactor to remove duplication
     const renderPopovers = isAuthenticated ? (
         <Stack direction="row" alignItems="center" spacing={0.9}>
             <Link to="/create/post">
@@ -40,9 +42,19 @@ const Header = ({ onNavOpen }: Props) => {
             <AvatarPopover />
         </Stack>
     ) : (
-        <Button component={Link} to="/login" color="inherit">
-            Login
-        </Button>
+        <Stack direction="row" alignItems="center" spacing={0.9}>
+            <Link to="/create/post">
+                <RoundButton
+                    text="write"
+                    icon={<CreateIcon />}
+                    variant="contained"
+                    color="primary"
+                />
+            </Link>
+            <SettingsPopover />
+            <NotificationsPopoverAnon />
+            <AvatarPopoverAnon />
+        </Stack>
     );
 
     return (
