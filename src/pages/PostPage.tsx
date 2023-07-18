@@ -4,6 +4,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import PostService from "../service/post.service.tsx";
+import EmptyState from "../components/EmptyState.tsx";
+
 
 interface Props {
     mode: "teach" | "learn" | "following";
@@ -37,8 +39,8 @@ const PostPage = ({ mode, title }: Props) => {
                     New Post
                 </Button>
             </Stack>
-
             <PostList posts={data} isLoading={isLoading} />
+            {!isLoading && (!data || data.length === 0 ) && <EmptyState message="There are no journals yet."/>}
         </>
     );
 };
