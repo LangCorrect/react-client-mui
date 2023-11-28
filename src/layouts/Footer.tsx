@@ -75,7 +75,7 @@ const Footer = () => {
     ];
 
     return (
-        <Box component="footer" py={6}>
+        <Box component="footer" mt={5}>
             <BootstrapContainer>
                 <Stack>
                     <Grid container justifyContent="space-between">
